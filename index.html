@@ -438,11 +438,98 @@
 
   <!-- MARQUEE -->
   <div class="marquee-top">
-    <span>✿ hello, we are online! ✿ hello, we are online! ✿ hello, we are online! ✿ hello, we are online! ✿</span>
+    <span>✿ ✿ ✿ hế lô we are online! hế lô we are online! hế lô we are online! ✿ ✿ ✿ hế lô we are online! hế lô we are online! hế lô we are online! ✿ ✿ ✿</span>
   </div>
   
   <h1>...</h1>
-    
+
+    <div class="main-grid">
+
+      <!-- LEFT -->
+      <div class="left-col">
+
+        <div class="box">
+          <div class="box-title">( ._.) latest </div>
+          <div class="box-body">
+
+            
+
+          
+
+          </div>
+        </div>
+
+        <div class="box">
+          <div class="box-title">(¬‿¬) now playing</div>
+          <div class="box-body">
+            <div class="status-item">
+              <div class="status-dot"></div>
+              <span>giấc mơ có thật</span>
+            </div>
+            <div style="font-family:'Noto Serif Vietnamese',serif; color:var(--rose); font-size:14px; margin-top:6px; opacity:0.7;">đang nghe nhạc...</div>
+          </div>
+        </div>
+
+      </div>
+
+
+
+  <!-- FLOATING PARTICLES -->
+  <div id="particles" style="position:fixed;inset:0;pointer-events:none;z-index:2;overflow:hidden;"></div>
+
+  <script>
+    // Visitor counter
+    const count = Math.floor(Math.random() * 9000) + 1000;
+    document.getElementById('counter').textContent = String(count).padStart(6, '0');
+
+    // Floating particles
+    const pContainer = document.getElementById('particles');
+    const symbols = ['✿', '˚', '·', '✦', '∘'];
+    for (let i = 0; i < 18; i++) {
+      const p = document.createElement('div');
+      p.className = 'particle';
+      p.textContent = symbols[Math.floor(Math.random() * symbols.length)];
+      p.style.left = Math.random() * 100 + 'vw';
+      p.style.top = (40 + Math.random() * 60) + 'vh';
+      p.style.setProperty('--d', (6 + Math.random() * 8) + 's');
+      p.style.setProperty('--delay', (Math.random() * 8) + 's');
+      p.style.color = Math.random() > 0.5 ? 'var(--pink)' : 'var(--orange)';
+      p.style.fontSize = (10 + Math.random() * 10) + 'px';
+      pContainer.appendChild(p);
+    }
+
+    // Sparkle trail
+    const sparkleStyle = document.createElement('style');
+    sparkleStyle.textContent = `@keyframes sparkle {
+      0%   { opacity: 0.9; transform: translate(0, 0) scale(1); }
+      100% { opacity: 0;   transform: translateY(-35px) scale(0.3); }
+    }`;
+    document.head.appendChild(sparkleStyle);
+
+    const trailSymbols = ['¬‿¬', '._.', '-_-', '•‿•', '✿', '˚'];
+    const trailColors  = ['#ff8c42', '#ff6eb4', '#ffb347', '#ffaec0'];
+
+    document.addEventListener('mousemove', (e) => {
+      if (Math.random() > 0.72) {
+        const spark = document.createElement('div');
+        spark.textContent = trailSymbols[Math.floor(Math.random() * trailSymbols.length)];
+        spark.style.cssText = `
+          position: fixed;
+          left: ${e.clientX + (Math.random() * 16 - 8)}px;
+          top:  ${e.clientY + (Math.random() * 16 - 8)}px;
+          pointer-events: none;
+          z-index: 9999;
+          color: ${trailColors[Math.floor(Math.random() * trailColors.length)]};
+          font-family: 'VT323', monospace;
+          font-size: ${Math.random() * 10 + 11}px;
+          animation: sparkle 0.9s ease forwards;
+        `;
+        document.body.appendChild(spark);
+        setTimeout(() => spark.remove(), 900);
+      }
+    });
+  </script>
+
   <footer>
     <p>© 2026 nogma.xyz — funfunfun</p>
   </footer>
