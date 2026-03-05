@@ -438,7 +438,7 @@
 
   <!-- MARQUEE -->
   <div class="marquee-top">
-    <span>✿ ✿ ✿ hế lô we are online! hế lô we are online! hế lô we are online! ✿ ✿ ✿ hế lô we are online! hế lô we are online! hế lô we are online! ✿ ✿ ✿</span>
+    <span>✿ ✿ ✿ hế lô we are online hế lô we are online hế lô we are online ✿ ✿ ✿ hế lô we are online hế lô we are online hế lô we are online ✿ ✿ ✿</span>
   </div>
 
      <div class="wrapper">
@@ -450,13 +450,7 @@
       <div class="viet-sub">playground</div>
     </header>
 
-    <nav>
-      <a href="#">(✿ ᴗ͈ˬᴗ͈)◞</a>
-      <a href="#">ᕦ(ò_óˇ)ᕤ</a>
-      <a href="#">(¬⤙¬ )</a>
-      <a href="#">ƪ(˘⌣˘)ʃ</a>
-      <a href="#">(╥﹏╥)</a>
-    </nav>
+  
 
     <div class="main-grid">
 
@@ -502,8 +496,6 @@
           </div>
         </div>
 
-        <a href="/home.html"><img class="window" src="/images/win95_splash_window.png" alt="Best viewed on desktop with a 16:9 monitor, click to enter site."></a>
-       
       </div>
     </div>
 
@@ -512,65 +504,6 @@
     </footer>
 
   </div>
-
-
-
-
-    <!-- FLOATING PARTICLES -->
-  <div id="particles" style="position:fixed;inset:0;pointer-events:none;z-index:2;overflow:hidden;"></div>
-
-  <script>
-    // Visitor counter
-    const count = Math.floor(Math.random() * 9000) + 1000;
-    document.getElementById('counter').textContent = String(count).padStart(6, '0');
-
-    // Floating particles
-    const pContainer = document.getElementById('particles');
-    const symbols = ['✿', '˚', '·', '✦', '∘'];
-    for (let i = 0; i < 18; i++) {
-      const p = document.createElement('div');
-      p.className = 'particle';
-      p.textContent = symbols[Math.floor(Math.random() * symbols.length)];
-      p.style.left = Math.random() * 100 + 'vw';
-      p.style.top = (40 + Math.random() * 60) + 'vh';
-      p.style.setProperty('--d', (6 + Math.random() * 8) + 's');
-      p.style.setProperty('--delay', (Math.random() * 8) + 's');
-      p.style.color = Math.random() > 0.5 ? 'var(--pink)' : 'var(--orange)';
-      p.style.fontSize = (10 + Math.random() * 10) + 'px';
-      pContainer.appendChild(p);
-    }
-
-    // Sparkle trail
-    const sparkleStyle = document.createElement('style');
-    sparkleStyle.textContent = `@keyframes sparkle {
-      0%   { opacity: 0.9; transform: translate(0, 0) scale(1); }
-      100% { opacity: 0;   transform: translateY(-35px) scale(0.3); }
-    }`;
-    document.head.appendChild(sparkleStyle);
-
-    const trailSymbols = ['¬‿¬', '._.', '-_-', '•‿•', '✿', '˚'];
-    const trailColors  = ['#ff8c42', '#ff6eb4', '#ffb347', '#ffaec0'];
-
-    document.addEventListener('mousemove', (e) => {
-      if (Math.random() > 0.72) {
-        const spark = document.createElement('div');
-        spark.textContent = trailSymbols[Math.floor(Math.random() * trailSymbols.length)];
-        spark.style.cssText = `
-          position: fixed;
-          left: ${e.clientX + (Math.random() * 16 - 8)}px;
-          top:  ${e.clientY + (Math.random() * 16 - 8)}px;
-          pointer-events: none;
-          z-index: 9999;
-          color: ${trailColors[Math.floor(Math.random() * trailColors.length)]};
-          font-family: 'VT323', monospace;
-          font-size: ${Math.random() * 10 + 11}px;
-          animation: sparkle 0.9s ease forwards;
-        `;
-        document.body.appendChild(spark);
-        setTimeout(() => spark.remove(), 900);
-      }
-    });
-  </script>
 
 </body>
 </html>
