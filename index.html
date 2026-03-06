@@ -116,7 +116,7 @@
 
     .marquee-top { background:linear-gradient(90deg,var(--marquee1),var(--marquee2),var(--marquee3),var(--marquee2),var(--marquee1)); background-size:200% 100%; animation:gradShift 6s linear infinite; color:#fff; font-family:'Noto Serif Vietnamese',serif; font-size:9px; padding:7px 0; white-space:nowrap; overflow:hidden; position:relative; z-index:10; transition:background .5s; }
     @keyframes gradShift{0%{background-position:0% 50%}100%{background-position:200% 50%}}
-    .marquee-top span { display:inline-block; animation:marquee 20s linear infinite; }
+    .marquee-top span { display:none; display:inline-block; animation:marquee 20s linear infinite; }
     @keyframes marquee{from{transform:translateX(100vw)}to{transform:translateX(-100%)}}
 
     .palette-switch { position:fixed; right:0; top:50%; transform:translateY(-50%); z-index:1000; display:flex; flex-direction:column; align-items:center; gap:6px; background:var(--glass-bg); backdrop-filter:blur(20px) saturate(1.8); -webkit-backdrop-filter:blur(20px) saturate(1.8); border:1px solid var(--glass-border); border-right:none; border-radius:16px 0 0 16px; padding:10px 8px; box-shadow:-4px 0 24px rgba(0,0,0,.08), inset 1px 0 0 var(--glass-shine); transition:background .4s, border .4s; }
@@ -127,7 +127,7 @@
     .palette-dot.silver { background:linear-gradient(135deg,#b0bcc8,#e8ecf0); }
     .palette-dot.active { border-color:var(--text); transform:scale(1.15); }
 
-    .wrapper { display:none;max-width:960px; margin:0 auto; padding:24px 20px; position:relative; z-index:1; }
+    .wrapper { max-width:960px; margin:0 auto; padding:24px 20px; position:relative; z-index:1; }
 
     header { text-align:center; padding:36px 0 20px; }
     .flower-deco { font-size:28px; margin:10px 0; animation:spin 10s linear infinite; display:inline-block; filter:drop-shadow(0 0 8px rgba(255,110,180,.6)); }
