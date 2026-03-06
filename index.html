@@ -7,15 +7,16 @@
   <link rel="icon" href="Untitled-1.png">
   <link href="https://fonts.googleapis.com/css2?family=VT323&family=Press+Start+2P&family=Noto+Serif+Vietnamese&display=swap" rel="stylesheet"/>
   <style>
-    * { margin: 0; padding: 0; box-sizing: border-box; }
+    * { margin:0; padding:0; box-sizing:border-box; }
     :root {
-      --orange: #ff8c42; --pink: #ff6eb4; --peach: #ffb347;
-      --rose: #ffaec0; --bg: #fff5f8; --text: #3a2030;
-      --muted: #b07090; --card: rgba(255,255,255,0.45);
+      --orange:#ff8c42; --pink:#ff6eb4; --peach:#ffb347;
+      --rose:#ffaec0; --bg:#fff5f8; --text:#3a2030;
+      --muted:#b07090; --card:rgba(255,255,255,0.45);
     }
-    html { scroll-behavior: smooth; }
+    html { scroll-behavior:smooth; }
     body { background:var(--bg); color:var(--text); font-family:'VT323',monospace; font-size:20px; overflow-x:hidden; min-height:100vh; }
 
+    /* ── BG ORBS ── */
     .bg-canvas { position:fixed; inset:0; z-index:0; pointer-events:none; }
     .orb { position:absolute; border-radius:50%; filter:blur(70px); opacity:.38; animation:drift var(--dur,18s) ease-in-out infinite alternate; }
     .orb1 { width:600px;height:500px;background:radial-gradient(circle,#ffcce0,#ffb0d0);top:-100px;left:-150px;--dur:22s; }
@@ -25,16 +26,20 @@
     .orb5 { width:250px;height:200px;background:radial-gradient(circle,#e8d5f5,#d4a8e8);top:40%;left:40%;--dur:16s; }
     @keyframes drift { from{transform:translate(0,0) scale(1)} to{transform:translate(30px,40px) scale(1.08)} }
 
+    /* ── PARTICLES ── */
     .particle { position:absolute; font-size:13px; color:var(--pink); opacity:0; animation:floatUp var(--d,8s) ease-in infinite; animation-delay:var(--delay,0s); pointer-events:none; }
     @keyframes floatUp { 0%{opacity:0;transform:translateY(0) rotate(0deg)} 20%{opacity:.6} 80%{opacity:.3} 100%{opacity:0;transform:translateY(-120px) rotate(20deg)} }
 
-    .marquee-top { background:linear-gradient(90deg,var(--orange),var(--pink),var(--peach),var(--pink),var(--orange)); background-size:200% 100%; animation:gradShift 6s linear infinite; color:#fff; font-family:'Noto Serif Vietnamese',monospace; font-size:9px; padding:7px 0; white-space:nowrap; overflow:hidden; position:relative; z-index:10; }
+    /* ── MARQUEE ── */
+    .marquee-top { background:linear-gradient(90deg,var(--orange),var(--pink),var(--peach),var(--pink),var(--orange)); background-size:200% 100%; animation:gradShift 6s linear infinite; color:#fff; font-family:'Noto Serif Vietnamese',serif; font-size:9px; padding:7px 0; white-space:nowrap; overflow:hidden; position:relative; z-index:10; }
     @keyframes gradShift{0%{background-position:0% 50%}100%{background-position:200% 50%}}
     .marquee-top span { display:inline-block; animation:marquee 20s linear infinite; }
     @keyframes marquee{from{transform:translateX(100vw)}to{transform:translateX(-100%)}}
 
+    /* ── WRAPPER ── */
     .wrapper { max-width:960px; margin:0 auto; padding:24px 20px; position:relative; z-index:1; }
 
+    /* ── HEADER ── */
     header { text-align:center; padding:36px 0 20px; }
     .flower-deco { font-size:28px; margin:10px 0; animation:spin 10s linear infinite; display:inline-block; filter:drop-shadow(0 0 8px rgba(255,110,180,.6)); }
     @keyframes spin{to{transform:rotate(360deg)}}
@@ -43,29 +48,27 @@
     .site-sub { font-size:22px; color:var(--muted); margin-bottom:6px; }
     .viet-sub { font-family:'Noto Serif Vietnamese',serif; color:var(--rose); font-size:12px; letter-spacing:3px; opacity:.7; }
 
+    /* ── NAV ── */
     nav { display:flex; justify-content:center; flex-wrap:wrap; gap:10px; margin:18px 0; }
     nav a { font-family:'Press Start 2P',monospace; font-size:8px; color:#fff; background:linear-gradient(135deg,var(--orange),var(--pink)); padding:10px 16px; text-decoration:none; border-radius:999px; box-shadow:0 4px 15px rgba(255,110,180,.3); transition:all .25s; }
     nav a:hover { transform:translateY(-3px) scale(1.05); background:linear-gradient(135deg,var(--pink),var(--peach)); }
 
+    /* ── GLASS BOX ── */
     .box { background:var(--card); backdrop-filter:blur(20px); -webkit-backdrop-filter:blur(20px); border:1.5px solid rgba(255,180,180,.35); border-radius:28px; box-shadow:0 8px 32px rgba(255,110,180,.12),0 2px 8px rgba(255,140,66,.08),inset 0 1px 0 rgba(255,255,255,.7); overflow:hidden; transition:transform .25s,box-shadow .25s; }
     .box:hover { transform:translateY(-3px); box-shadow:0 14px 40px rgba(255,110,180,.2),inset 0 1px 0 rgba(255,255,255,.8); }
     .box-title { background:linear-gradient(135deg,rgba(255,140,66,.15),rgba(255,110,180,.15)); color:var(--orange); font-family:'Press Start 2P',monospace; font-size:9px; padding:12px 18px; border-bottom:1px solid rgba(255,180,180,.2); letter-spacing:.05em; }
     .box-body { padding:18px; }
 
-    .bento { display:grid; grid-template-columns:1fr 300px; grid-template-rows:auto auto auto; gap:18px; margin-top:24px; }
-    .col-left { display:flex; flex-direction:column; gap:18px; }
-    .col-right { display:flex; flex-direction:column; gap:18px; }
+    /* ── BENTO GRID ── */
+    .bento { display:grid; grid-template-columns:minmax(0,1fr) 290px; gap:18px; margin-top:24px; align-items:start; }
+    .col-left  { display:flex; flex-direction:column; gap:18px; min-width:0; overflow:hidden; }
+    .col-right { display:flex; flex-direction:column; gap:18px; width:290px; flex-shrink:0; }
 
-    /* SLIDESHOW */
-    .slideshow-container { position:relative; width:100%; height:180px; overflow:hidden; border-radius:16px; }
-    .slideshow-container .slide { position:absolute; width:100%; height:100%; object-fit:cover; opacity:0; transition:opacity .5s ease; }
-    .slideshow-container .slide.active { opacity:1; }
-
+    /* ── WISH BOX ── */
     .about-magic { text-align:center; font-size:42px; padding:10px 0 6px; line-height:1.2; animation:magicFloat 3s ease-in-out infinite; filter:drop-shadow(0 0 14px rgba(255,110,180,.5)); }
     @keyframes magicFloat{0%,100%{transform:translateY(0) scale(1)}50%{transform:translateY(-6px) scale(1.05)}}
-
     .wish-count { font-family:'Press Start 2P',monospace; font-size:7px; color:var(--muted); margin-bottom:12px; opacity:.7; }
-    .wish-list { list-style:none; max-height:240px; overflow-y:auto; margin-bottom:14px; }
+    .wish-list { list-style:none; max-height:180px; overflow-y:auto; margin-bottom:14px; }
     .wish-list::-webkit-scrollbar { width:3px; }
     .wish-list::-webkit-scrollbar-thumb { background:var(--rose); border-radius:999px; }
     .wish-item { display:flex; align-items:flex-start; gap:8px; padding:10px 12px; border-radius:16px; margin-bottom:7px; background:rgba(255,255,255,.3); backdrop-filter:blur(8px); font-size:18px; color:var(--text); line-height:1.5; animation:wishIn .4s ease both; }
@@ -80,9 +83,46 @@
     .wish-input:focus { border-color:var(--pink); box-shadow:0 0 0 3px rgba(255,110,180,.13); }
     .wish-btn { padding:10px 18px; border-radius:999px; border:none; background:linear-gradient(135deg,var(--orange),var(--pink)); color:#fff; font-family:'Press Start 2P',monospace; font-size:8px; cursor:pointer; box-shadow:0 4px 14px rgba(255,110,180,.3); transition:transform .15s,box-shadow .15s; white-space:nowrap; }
     .wish-btn:hover { transform:scale(1.05); box-shadow:0 6px 22px rgba(255,110,180,.45); }
-    .wish-submitted { text-align:center; padding:8px; font-size:17px; color:var(--orange); animation:wishIn .4s ease both; display:none; }
+    .wish-submitted { text-align:center; padding:8px; font-size:17px; color:var(--orange); display:none; }
 
-    /* PLAYER */
+    /* ── HORIZONTAL SCROLL SLIDESHOW ── */
+    .slideshow-track-wrap {
+      position:relative; overflow:hidden; width:100%;
+    }
+    /* soft fade on edges */
+    .slideshow-track-wrap::before,
+    .slideshow-track-wrap::after {
+      content:''; position:absolute; top:0; bottom:0; width:40px; z-index:2; pointer-events:none;
+    }
+    .slideshow-track-wrap::before { left:0;  background:linear-gradient(to right, rgba(255,245,250,.9), transparent); }
+    .slideshow-track-wrap::after  { right:0; background:linear-gradient(to left,  rgba(255,245,250,.9), transparent); }
+    .slideshow-track {
+      display:flex; gap:8px; padding:8px 4px;
+      width:max-content;
+      animation:slideLoop 32s linear infinite;
+    }
+    .slideshow-track:hover { animation-play-state:paused; }
+    @keyframes slideLoop {
+      0%   { transform:translateX(0); }
+      100% { transform:translateX(-50%); }
+    }
+    .slide-img {
+      width:88px; height:112px; object-fit:cover;
+      border-radius:16px; flex-shrink:0;
+      border:1.5px solid rgba(255,255,255,.75);
+      box-shadow:0 4px 16px rgba(255,110,180,.18), 0 1px 4px rgba(0,0,0,.06);
+      transition:transform .3s, box-shadow .3s;
+      position:relative;
+    }
+    .slide-img:nth-child(odd)  { transform:rotate(-1.8deg) translateY(4px); }
+    .slide-img:nth-child(even) { transform:rotate(1.4deg)  translateY(-4px); }
+    .slide-img:hover {
+      transform:scale(1.08) rotate(0deg) translateY(-6px) !important;
+      box-shadow:0 10px 30px rgba(255,110,180,.35);
+      z-index:10;
+    }
+
+    /* ── PLAYER ── */
     .player-box { background:linear-gradient(135deg,rgba(255,255,255,.50),rgba(255,195,215,.32),rgba(255,175,110,.25)); backdrop-filter:blur(40px) saturate(1.8); -webkit-backdrop-filter:blur(40px) saturate(1.8); border:1px solid rgba(255,255,255,.75); border-radius:28px; box-shadow:0 0 0 1px rgba(255,180,180,.18),0 16px 56px rgba(255,110,180,.15),inset 0 2px 0 rgba(255,255,255,.85),inset 0 -2px 0 rgba(255,140,66,.12); padding:20px; position:relative; overflow:hidden; }
     .player-box::before { content:''; position:absolute; top:-50%; left:-30%; width:75%; height:85%; background:radial-gradient(ellipse,rgba(255,255,255,.5) 0%,transparent 70%); pointer-events:none; border-radius:50%; transform:rotate(-20deg); }
     .player-label { font-family:'Press Start 2P',monospace; font-size:8px; color:var(--orange); letter-spacing:.08em; margin-bottom:14px; opacity:.8; }
@@ -110,18 +150,20 @@
     .track-name { flex:1; }
     .track-artist { font-family:'Press Start 2P',monospace; font-size:6px; color:rgba(192,144,170,.5); }
 
+    /* ── LINKS ── */
     .links-list { list-style:none; }
     .links-list li { margin-bottom:10px; }
     .links-list a { color:var(--orange); text-decoration:none; font-size:18px; transition:color .2s; }
     .links-list a::before { content:'@ '; color:var(--pink); font-size:14px; }
     .links-list a:hover { color:var(--pink); }
 
+    /* ── FOOTER ── */
     footer { text-align:center; padding:32px 20px; position:relative; z-index:1; }
     .footer-viet { font-family:'Noto Serif Vietnamese',serif; color:var(--orange); font-size:15px; opacity:.65; margin-top:14px; }
 
     ::-webkit-scrollbar { width:4px; }
     ::-webkit-scrollbar-thumb { background:rgba(255,174,192,.4); border-radius:999px; }
-    @media(max-width:700px) { .bento { grid-template-columns:1fr; } }
+    @media(max-width:700px) { .bento { grid-template-columns:1fr; } .col-right { width:100%; } }
   </style>
 </head>
 <body>
@@ -145,17 +187,18 @@
   </header>
 
   <div class="bento">
-    <!-- LEFT -->
+
+    <!-- ── LEFT COLUMN ── -->
     <div class="col-left">
-      
-      <!-- WISH LIST -->
+
+      <!-- WISH WALL -->
       <div class="box">
         <div class="box-title">still figuring out what this is</div>
         <div class="box-body">
           <div class="about-magic">✿ ˚ ✦</div>
           <div class="wish-count" id="wishCount"></div>
           <ul class="wish-list" id="wishList">
-            <li class="wish-empty">feel free to add your spice   ദ്ദി(—ᴗ— )</li>
+            <li class="wish-empty">feel free to add your spice &nbsp; ദ്ദി(—ᴗ— )</li>
           </ul>
           <div class="wish-form">
             <input class="wish-input" id="wishInput" type="text" maxlength="120" placeholder="i wish this site had ..."/>
@@ -165,29 +208,42 @@
         </div>
       </div>
 
-      <!-- SLIDESHOW BOX -->
-        <div class="box">
-          <div class="box-title">memo en couleur</div>
-          <div class="box-body">
-            <div class="slideshow-container" id="slideshow">
-              <img src="photo1.JPG" class="slide active" />
-              <img src="photo2.JPG" class="slide" />
-              <img src="photo3.JPG" class="slide" />
-              <img src="photo4.JPG" class="slide" />
-              <img src="photo5.JPG" class="slide" />
-              <img src="photo6.JPG" class="slide" />
-              <img src="photo7.JPG" class="slide" />
-              <img src="photo8.JPG" class="slide" />
-              <img src="photo9.JPG" class="slide" /> 
-              <img src="photo10.JPG" class="slide" />
+      <!-- SLIDESHOW -->
+      <div class="box">
+        <div class="box-title">memo en couleur</div>
+        <div class="box-body" style="padding:14px 0 10px;">
+          <div class="slideshow-track-wrap">
+            <div class="slideshow-track">
+              <!-- originals -->
+              <img class="slide-img" src="photo1.JPG"  alt=""/>
+              <img class="slide-img" src="photo2.JPG"  alt=""/>
+              <img class="slide-img" src="photo3.JPG"  alt=""/>
+              <img class="slide-img" src="photo4.JPG"  alt=""/>
+              <img class="slide-img" src="photo5.JPG"  alt=""/>
+              <img class="slide-img" src="photo6.JPG"  alt=""/>
+              <img class="slide-img" src="photo7.JPG"  alt=""/>
+              <img class="slide-img" src="photo8.JPG"  alt=""/>
+              <img class="slide-img" src="photo9.JPG"  alt=""/>
+              <img class="slide-img" src="photo10.JPG" alt=""/>
+              <!-- duplicates for seamless loop -->
+              <img class="slide-img" src="photo1.JPG"  alt=""/>
+              <img class="slide-img" src="photo2.JPG"  alt=""/>
+              <img class="slide-img" src="photo3.JPG"  alt=""/>
+              <img class="slide-img" src="photo4.JPG"  alt=""/>
+              <img class="slide-img" src="photo5.JPG"  alt=""/>
+              <img class="slide-img" src="photo6.JPG"  alt=""/>
+              <img class="slide-img" src="photo7.JPG"  alt=""/>
+              <img class="slide-img" src="photo8.JPG"  alt=""/>
+              <img class="slide-img" src="photo9.JPG"  alt=""/>
+              <img class="slide-img" src="photo10.JPG" alt=""/>
             </div>
+          </div>
         </div>
-      
-    </div>
+      </div>
 
+    </div><!-- end col-left -->
 
-
-    <!-- RIGHT -->
+    <!-- ── RIGHT COLUMN ── -->
     <div class="col-right">
 
       <!-- LIQUID GLASS PLAYER -->
@@ -215,7 +271,6 @@
           <div class="progress-time" id="progressTime">0:00 / 0:00</div>
         </div>
         <div class="playlist" id="playlist"></div>
-        <!-- hidden YouTube iframe -->
         <div style="position:absolute;width:1px;height:1px;opacity:0;pointer-events:none;overflow:hidden;bottom:0;left:0;">
           <div id="yt-player"></div>
         </div>
@@ -233,8 +288,9 @@
         </div>
       </div>
 
-    </div>
-  </div>
+    </div><!-- end col-right -->
+
+  </div><!-- end bento -->
 
   <footer>
     <nav>
@@ -285,11 +341,11 @@ document.addEventListener('mousemove',e=>{
 
 // ── MUSIC PLAYER — YouTube IFrame API ──
 const tracks=[
-  {title:'giấc mơ có thật',            artist:'lệ quyên',                     ytId:'c6EBuAUfNHU'},
-  {title:'cherry cola',               artist:'ttrruuces',                      ytId:'BdAohAa6ems'},
-  {title:'natsu no hikari ni',          artist:'sumiko yamagata',            ytId:'ODeaDLgmW6I'},
-  {title:'nuits d`été',                artist:'oscar + clementine',          ytId:'B3JcHWCA-VA'},
-  {title:'meta angel',                  artist:'fka twigs',                     ytId:'LsGuF6UktX4'},
+  {title:'giấc mơ có thật',            artist:'lệ quyên',          ytId:'c6EBuAUfNHU'},
+  {title:'cherry cola',                 artist:'ttrruuces',          ytId:'BdAohAa6ems'},
+  {title:'natsu no hikari ni',          artist:'sumiko yamagata',    ytId:'ODeaDLgmW6I'},
+  {title:'nuits d\'été',               artist:'oscar + clementine', ytId:'B3JcHWCA-VA'},
+  {title:'meta angel',                  artist:'fka twigs',          ytId:'LsGuF6UktX4'},
 ];
 
 let cur=0, playing=false, timer=null, ytPlayer=null, ytReady=false;
@@ -303,11 +359,11 @@ document.head.appendChild(ytScript);
 window.onYouTubeIframeAPIReady=function(){
   ytPlayer=new YT.Player('yt-player',{
     height:'1', width:'1',
-    videoId: tracks[0].ytId,
-    playerVars:{ autoplay:0, controls:0, disablekb:1, fs:0, modestbranding:1, rel:0, playsinline:1 },
+    videoId:tracks[0].ytId,
+    playerVars:{autoplay:0,controls:0,disablekb:1,fs:0,modestbranding:1,rel:0,playsinline:1},
     events:{
-      onReady: ()=>{ ytReady=true; loadTrack(0); },
-      onStateChange: e=>{
+      onReady:()=>{ ytReady=true; loadTrack(0); },
+      onStateChange:e=>{
         if(e.data===YT.PlayerState.ENDED){ changeTrack(1); }
         if(e.data===YT.PlayerState.PLAYING){
           playing=true; $('playBtn').textContent='⏸';
@@ -328,7 +384,6 @@ function changeTrack(dir){
   loadTrack(cur);
   if(ytReady) ytPlayer.loadVideoById(tracks[cur].ytId);
 }
-
 function loadTrack(i){
   cur=i;
   $('songTitle').textContent=tracks[i].title;
@@ -340,14 +395,12 @@ function loadTrack(i){
   thumb.onerror=()=>{ thumb.style.display='none'; emoji.style.display='block'; };
   updateProg(); buildPlaylist();
 }
-
 function updateProg(){
   if(!ytReady){ $('progressFill').style.width='0%'; $('progressTime').textContent='0:00 / 0:00'; return; }
   const dur=ytPlayer.getDuration?.()||0, el=ytPlayer.getCurrentTime?.()||0;
   $('progressFill').style.width=(dur>0?el/dur*100:0)+'%';
   $('progressTime').textContent=`${fmt(el)} / ${fmt(dur)}`;
 }
-
 $('playBtn').onclick=()=>{
   if(!ytReady)return;
   ytPlayer.getPlayerState()===YT.PlayerState.PLAYING?ytPlayer.pauseVideo():ytPlayer.playVideo();
@@ -359,7 +412,6 @@ $('progressWrap').onclick=function(e){
   const r=this.getBoundingClientRect();
   ytPlayer.seekTo(((e.clientX-r.left)/r.width)*(ytPlayer.getDuration?.()||0),true);
 };
-
 function buildPlaylist(){
   $('playlist').innerHTML='';
   tracks.forEach((t,i)=>{
@@ -386,8 +438,8 @@ function timeAgo(ts){
 }
 function renderWishes(wishes){
   const wl=$('wishList'),wc=$('wishCount');
-  if(!wishes.length){wl.innerHTML='<li class="wish-empty">feel free to add your spice   ദ്ദി(—ᴗ— )</li>';wc.textContent='';return;}
-  wc.textContent=`${wishes.length} wish${wishes.length===1?'':'es'} feel free to add your spice   ദ്ദി(—ᴗ— )`;
+  if(!wishes.length){wl.innerHTML='<li class="wish-empty">feel free to add your spice &nbsp; ദ്ദി(—ᴗ— )</li>';wc.textContent='';return;}
+  wc.textContent=`${wishes.length} wish${wishes.length===1?'':'es'} — feel free to add your spice ദ്ദി(—ᴗ— )`;
   wl.innerHTML=wishes.map(w=>`<li class="wish-item"><span class="wish-icon">✿</span><span class="wish-text">${w.text}<span class="wish-time">${timeAgo(w.created_at)}</span></span></li>`).join('');
 }
 async function loadWishes(){
@@ -397,17 +449,17 @@ async function loadWishes(){
   }catch(e){$('wishList').innerHTML='<li class="wish-empty">could not load wishes (._.) try again later</li>';}
 }
 async function addWish(){
-  const val=$('wishInput').value.trim();if(!val)return;
-  $('wishBtn').textContent='✿ ...';$('wishBtn').disabled=true;
+  const val=$('wishInput').value.trim(); if(!val)return;
+  $('wishBtn').textContent='✿ ...'; $('wishBtn').disabled=true;
   try{
     const res=await fetch(`${SB_URL}/rest/v1/wishes`,{method:'POST',headers:{...SB_HDRS,'Prefer':'return=minimal'},body:JSON.stringify({text:val})});
     if(res.ok||res.status===201){
       $('wishInput').value='';
-      const sub=$('wishSubmitted');sub.style.display='block';setTimeout(()=>sub.style.display='none',2500);
+      const sub=$('wishSubmitted'); sub.style.display='block'; setTimeout(()=>sub.style.display='none',2500);
       await loadWishes();
     }
   }catch(e){}
-  $('wishBtn').textContent='✿ wish';$('wishBtn').disabled=false;
+  $('wishBtn').textContent='✿ wish'; $('wishBtn').disabled=false;
 }
 $('wishBtn').onclick=addWish;
 $('wishInput').onkeydown=e=>{if(e.key==='Enter')addWish();};
