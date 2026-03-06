@@ -94,9 +94,12 @@
     body.silver .playlist               { border-top-color:rgba(0,0,0,.09); }
     body.silver .playlist-item:hover    { background:rgba(0,0,0,.06); color:#111; }
     body.silver .playlist-item.active   { background:rgba(0,0,0,.10); color:#111; }
-    body.silver .links-list a:hover     { background:linear-gradient(135deg,#ff8c42,#ff6eb4); color:#fff; padding:10px 16px; border-radius:999px; box-shadow:0 4px 15px rgba(255,110,180,.3); }
+    body.silver .links-list a:hover     { color:#444; }
     body.silver .links-list a::before   { color:#555; }
-    body.silver .links-list a:hover::before { color:#fff; }
+    body.silver .links-list a:hover::before { color:#444; }
+    body.silver nav a:hover { background:linear-gradient(135deg,#ff8c42,#ff6eb4); }
+    body.silver .play-btn:hover { background:linear-gradient(135deg,#ff8c42,#ff6eb4); }
+    body.silver .wish-btn:hover { background:linear-gradient(135deg,#ff8c42,#ff6eb4); }
     body.silver .palette-switch         { background:rgba(220,222,224,.58); border-color:rgba(255,255,255,.78); }
     body.silver ::-webkit-scrollbar-thumb { background:rgba(0,0,0,.18); }
 
@@ -212,8 +215,8 @@
     .links-list li { margin-bottom:10px; }
     .links-list a { color:var(--orange); text-decoration:none; font-size:18px; transition:all .25s; }
     .links-list a::before { content:'@ '; color:var(--pink); font-size:14px; }
-    .links-list a:hover { background:linear-gradient(135deg,#00bcd4,#26c6da); color:#fff; padding:10px 16px; border-radius:999px; box-shadow:0 4px 15px rgba(0,188,212,.3); }
-    .links-list a:hover::before { color:#fff; }
+    .links-list a:hover { color:var(--pink); }
+    .links-list a:hover::before { color:var(--pink); }
 
     footer { text-align:center; padding:32px 20px; position:relative; z-index:1; }
     .footer-viet { font-family:'Noto Serif Vietnamese',serif; color:var(--orange); font-size:12px; opacity:.65; margin-top:14px; }
