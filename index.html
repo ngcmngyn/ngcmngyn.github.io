@@ -358,7 +358,7 @@ function timeAgo(ts){
 }
 function renderWishes(wishes){
   const wl=$('wishList'),wc=$('wishCount');
-  if(!wishes.length){wl.innerHTML='<li class="wish-empty">pls help ദ്ദി(—ᴗ— )</li>';wc.textContent='';return;}
+  if(!wishes.length){wl.innerHTML='<li class="wish-empty">feel free to add your spice ദ്ദി(—ᴗ— )</li>';wc.textContent='';return;}
   wc.textContent=`${wishes.length} wish${wishes.length===1?'':'es'} pls help ദ്ദി(—ᴗ— )`;
   wl.innerHTML=wishes.map(w=>`<li class="wish-item"><span class="wish-icon">✿</span><span class="wish-text">${w.text}<span class="wish-time">${timeAgo(w.created_at)}</span></span></li>`).join('');
 }
