@@ -70,41 +70,17 @@
 
     /* ── PALETTE SWITCH ── */
     .palette-switch {
-      position: fixed;
-      right: 0;
-      top: 50%;
-      transform: translateY(-50%);
-      z-index: 1000;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 6px;
+      position: fixed; right: 0; top: 50%; transform: translateY(-50%);
+      z-index: 1000; display: flex; flex-direction: column; align-items: center; gap: 6px;
       background: var(--glass-bg);
-      backdrop-filter: blur(20px) saturate(1.8);
-      -webkit-backdrop-filter: blur(20px) saturate(1.8);
-      border: 1px solid var(--glass-border);
-      border-right: none;
-      border-radius: 16px 0 0 16px;
-      padding: 10px 8px;
+      backdrop-filter: blur(20px) saturate(1.8); -webkit-backdrop-filter: blur(20px) saturate(1.8);
+      border: 1px solid var(--glass-border); border-right: none;
+      border-radius: 16px 0 0 16px; padding: 10px 8px;
       box-shadow: -4px 0 24px rgba(0,0,0,.08), inset 1px 0 0 var(--glass-shine);
       transition: background .4s, border .4s;
     }
-    .palette-switch-label {
-      font-family:'Press Start 2P',monospace;
-      font-size:5px;
-      color:var(--muted);
-      writing-mode:vertical-rl;
-      text-orientation:mixed;
-      letter-spacing:.12em;
-      opacity:.7;
-      margin-bottom:4px;
-    }
-    .palette-dot {
-      width: 18px; height: 18px; border-radius: 50%; cursor: pointer;
-      border: 2px solid rgba(255,255,255,.6);
-      box-shadow: 0 2px 8px rgba(0,0,0,.12);
-      transition: transform .2s, box-shadow .2s;
-    }
+    .palette-switch-label { font-family:'Press Start 2P',monospace; font-size:5px; color:var(--muted); writing-mode:vertical-rl; text-orientation:mixed; letter-spacing:.12em; opacity:.7; margin-bottom:4px; }
+    .palette-dot { width:18px; height:18px; border-radius:50%; cursor:pointer; border:2px solid rgba(255,255,255,.6); box-shadow:0 2px 8px rgba(0,0,0,.12); transition:transform .2s, box-shadow .2s; }
     .palette-dot:hover { transform:scale(1.2); box-shadow:0 4px 14px rgba(0,0,0,.2); }
     .palette-dot.pink   { background: linear-gradient(135deg,#ff8c42,#ff6eb4); }
     .palette-dot.silver { background: linear-gradient(135deg,#b0bcc8,#e8ecf0); }
@@ -177,81 +153,58 @@
     .wish-btn:hover { transform:scale(1.05); }
     .wish-submitted { text-align:center; padding:8px; font-size:17px; color:var(--orange); display:none; }
 
-
     /* ── SCATTER PHOTO BOX ── */
     .scatter-outer {
-      background:linear-gradient(135deg,rgba(255,255,255,.50),rgba(255,195,215,.32),rgba(255,175,110,.25)); 
-      backdrop-filter:blur(40px) saturate(1.8); 
-      -webkit-backdrop-filter:blur(40px) saturate(1.8); 
-      border:1px solid var(--glass-border); border-radius:28px; 
-      box-shadow:
-        0 0 0 1px rgba(255,180,180,.18),
-        0 16px 56px rgba(255,110,180,.15),
-        inset 0 2px 0 rgba(255,255,255,.85),
-        inset 0 -2px 0 rgba(255,140,66,.12); 
-      padding:20px; position:relative; overflow:hidden;
-      transition: background .4s, border .4s, box-shadow .4s;
+      background:linear-gradient(135deg,rgba(255,255,255,.50),rgba(255,195,215,.32),rgba(255,175,110,.25));
+      backdrop-filter:blur(40px) saturate(1.8); -webkit-backdrop-filter:blur(40px) saturate(1.8);
+      border:1px solid var(--glass-border);
+      /* FIX: no bottom radius so photos bleed to edge; transparent bottom border */
+      border-bottom-color: transparent;
+      border-radius:28px;
+      box-shadow:0 0 0 1px rgba(255,180,180,.18), 0 16px 56px rgba(255,110,180,.15), inset 0 2px 0 rgba(255,255,255,.85), inset 0 -2px 0 rgba(255,140,66,.12);
+      position:relative; overflow:hidden;
     }
-    .scatter-outer .box-title {
-      background: linear-gradient(135deg, rgba(255,255,255,.12), rgba(255,255,255,.04));
-      color: var(--orange);
-      font-family:'Press Start 2P',monospace; font-size:9px;
-      padding:12px 18px;
-      border-bottom: 0px transparent rgba(255,255,255,.18);
-      letter-spacing:.05em;
+    /* FIX: scatter title matches .box-title height exactly — same padding, same font, same border */
+    .scatter-outer .scatter-title {
+      background: linear-gradient(135deg,rgba(255,140,66,.15),rgba(255,110,180,.15));
+      color:var(--orange); font-family:'Press Start 2P',monospace; font-size:9px;
+      padding:12px 18px; border-bottom:1px solid rgba(255,180,180,.2); letter-spacing:.05em;
     }
     .scatter-scroll {
-      overflow-y: scroll;
-      overflow-x: hidden;
-      height: 250px;
-      position: relative;
-      cursor: default;
+      overflow-y: scroll; overflow-x: hidden;
+      height: 250px; position: relative; cursor: default;
     }
     .scatter-scroll::-webkit-scrollbar { width:3px; }
     .scatter-scroll::-webkit-scrollbar-thumb { background:rgba(255,255,255,.3); border-radius:999px; }
-    .scatter-canvas {
-      position: relative;
-      width: 100%;
-      /* height set by JS */
-    }
+    .scatter-canvas { position:relative; width:100%; /* height set by JS */ }
+
+    /* FIX: no border, mix-blend-mode multiply for overlap transparency like wanda.net */
     .scatter-img {
-      position: absolute;
-      object-fit: cover;
-      border-radius: 0;
-      border: none;
-      opacity: 0.92;
-      box-shadow: 0 8px 28px rgba(0,0,0,.22), 0 2px 8px rgba(0,0,0,.12);
-      cursor: grab;
-      user-select: none;
-      -webkit-user-drag: none;
-      transition: box-shadow .2s;
+      position:absolute; object-fit:cover;
+      border-radius:0; border:none;
+      mix-blend-mode: multiply;
+      box-shadow: 0 6px 24px rgba(0,0,0,.18), 0 2px 8px rgba(0,0,0,.10);
+      cursor:grab; user-select:none; -webkit-user-drag:none;
+      transition: box-shadow .2s, opacity .2s;
     }
-    .scatter-img:active { cursor: grabbing; }
+    .scatter-img:active { cursor:grabbing; }
     .scatter-img.dragging {
+      mix-blend-mode: normal;
       box-shadow: 0 20px 56px rgba(0,0,0,.32), 0 4px 16px rgba(0,0,0,.18);
+      opacity: 1 !important;
       z-index: 99 !important;
       transition: none;
     }
 
     /* ── PLAYER ── */
-    
-    .player-box { 
-      background:linear-gradient(135deg,rgba(255,255,255,.50),rgba(255,195,215,.32),rgba(255,175,110,.25)); 
-      backdrop-filter:blur(40px) saturate(1.8); 
-      -webkit-backdrop-filter:blur(40px) saturate(1.8); 
-      border:1px solid rgba(255,255,255,.75); border-radius:28px; 
-      box-shadow:
-        0 0 0 1px rgba(255,180,180,.18),
-        0 16px 56px rgba(255,110,180,.15),
-        inset 0 2px 0 rgba(255,255,255,.85),
-        inset 0 -2px 0 rgba(255,140,66,.12); 
-      padding:20px; position:relative; overflow:hidden; }
-    
-      .player-box::before { 
-      content:''; position:absolute; top:-50%; left:-30%; width:75%; height:85%; 
-      background:radial-gradient(ellipse,rgba(255,255,255,.5) 0%,transparent 70%); 
-      pointer-events:none; border-radius:50%; transform:rotate(-20deg); }
-    
+    .player-box {
+      background:linear-gradient(135deg,rgba(255,255,255,.50),rgba(255,195,215,.32),rgba(255,175,110,.25));
+      backdrop-filter:blur(40px) saturate(1.8); -webkit-backdrop-filter:blur(40px) saturate(1.8);
+      border:1px solid rgba(255,255,255,.75); border-radius:28px;
+      box-shadow:0 0 0 1px rgba(255,180,180,.18), 0 16px 56px rgba(255,110,180,.15), inset 0 2px 0 rgba(255,255,255,.85), inset 0 -2px 0 rgba(255,140,66,.12);
+      padding:20px; position:relative; overflow:hidden;
+    }
+    .player-box::before { content:''; position:absolute; top:-50%; left:-30%; width:75%; height:85%; background:radial-gradient(ellipse,rgba(255,255,255,.5) 0%,transparent 70%); pointer-events:none; border-radius:50%; transform:rotate(-20deg); }
     .player-label { font-family:'Press Start 2P',monospace; font-size:8px; color:var(--orange); letter-spacing:.08em; margin-bottom:14px; opacity:.8; }
     .player-row { display:flex; align-items:center; gap:14px; margin-bottom:14px; }
     .player-art { width:58px; height:58px; border-radius:14px; flex-shrink:0; overflow:hidden; background:linear-gradient(135deg,var(--orange),var(--pink),var(--peach)); display:flex; align-items:center; justify-content:center; font-size:26px; box-shadow:0 4px 20px rgba(255,110,180,.4); animation:artSpin 10s linear infinite paused; }
@@ -259,7 +212,8 @@
     @keyframes artSpin{to{transform:rotate(360deg)}}
     .player-art img { width:100%; height:100%; object-fit:cover; display:none; }
     .player-info { flex:1; min-width:0; }
-    .player-song { font-family:'Press Start 2P',monospace; font-size:8px; color:var(--text); margin-bottom:4px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; line-height:1.6; }
+    /* FIX: slightly smaller song title so long track names fit on one line */
+    .player-song { font-family:'Press Start 2P',monospace; font-size:6.5px; color:var(--text); margin-bottom:4px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; line-height:1.6; }
     .player-artist { color:var(--muted); font-size:16px; margin-bottom:10px; }
     .player-controls { display:flex; align-items:center; gap:10px; }
     .ctrl-btn { background:none; border:none; cursor:pointer; color:var(--muted); font-size:16px; font-family:'VT323',monospace; padding:3px; transition:color .2s,transform .15s; line-height:1; }
@@ -344,7 +298,7 @@
 
       <!-- SCATTER PHOTOS -->
       <div class="scatter-outer">
-        <div class="box-title">memo en couleur</div>
+        <div class="scatter-title">memo en couleur</div>
         <div class="scatter-scroll" id="scatterScroll">
           <div class="scatter-canvas" id="scatterBox">
             <img class="scatter-img" src="photo1.JPG"  alt=""/>
@@ -478,21 +432,19 @@ document.addEventListener('mousemove',e=>{
   const imgs   = Array.from(canvas.querySelectorAll('.scatter-img'));
   const W      = canvas.parentElement.offsetWidth || 460;
 
-  // varied sizes: portrait, landscape, square — no white borders
   const sizes = [
-    {w:112, h:148}, // portrait
-    {w:182, h:116}, // wide landscape
-    {w:96,  h:122}, // small portrait
-    {w:164, h:104}, // landscape
-    {w:102, h:102}, // square
-    {w:148, h:178}, // tall portrait
-    {w:172, h:110}, // wide
-    {w:84,  h:108}, // tiny portrait
-    {w:138, h:88 }, // short landscape
-    {w:156, h:160}, // big square
+    {w:112, h:148},
+    {w:182, h:116},
+    {w:96,  h:122},
+    {w:164, h:104},
+    {w:102, h:102},
+    {w:148, h:178},
+    {w:172, h:110},
+    {w:84,  h:108},
+    {w:138, h:88 },
+    {w:156, h:160},
   ];
 
-  // chaotic, irregular — intentionally varied spacing and heavy rotations
   const placements = [
     { x:10,  y:16,  r:-13, z:3 },
     { x:195, y:6,   r:  8, z:1 },
@@ -535,16 +487,11 @@ document.addEventListener('mousemove',e=>{
       topZ++;
       img.style.zIndex = topZ;
       img.classList.add('dragging');
-
       const touch = e.touches ? e.touches[0] : e;
-      const rect = img.getBoundingClientRect();
-      const scrollRect = scroll.getBoundingClientRect();
       startX = touch.clientX;
       startY = touch.clientY + scroll.scrollTop;
       origLeft = parseInt(img.style.left) || 0;
       origTop  = parseInt(img.style.top)  || 0;
-
-      // prevent scroll while dragging
       scroll.style.overflowY = 'hidden';
     };
 
