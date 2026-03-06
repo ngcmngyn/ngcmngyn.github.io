@@ -56,6 +56,11 @@
     .col-left { display:flex; flex-direction:column; gap:18px; }
     .col-right { display:flex; flex-direction:column; gap:18px; }
 
+    /* SLIDESHOW */
+    .slideshow-container { position:relative; width:100%; height:180px; overflow:hidden; border-radius:16px; }
+    .slideshow-container .slide { position:absolute; width:100%; height:100%; object-fit:cover; opacity:0; transition:opacity .5s ease; }
+    .slideshow-container .slide.active { opacity:1; }
+
     .about-magic { text-align:center; font-size:42px; padding:10px 0 6px; line-height:1.2; animation:magicFloat 3s ease-in-out infinite; filter:drop-shadow(0 0 14px rgba(255,110,180,.5)); }
     @keyframes magicFloat{0%,100%{transform:translateY(0) scale(1)}50%{transform:translateY(-6px) scale(1.05)}}
 
@@ -157,7 +162,41 @@
           <div class="wish-submitted" id="wishSubmitted">thankiu ✿</div>
         </div>
       </div>
-    </div>
+
+        <!-- SLIDESHOW -->
+      <div class="slideshow-box">
+        <div class="slideshow-label">memo en couleur</div>
+        <div class="slideshow-track-wrap">
+          <div class="slideshow-track">
+            <img class="slide-img" src="photo1.jpg"  alt=""/>
+            <img class="slide-img" src="photo2.jpg"  alt=""/>
+            <img class="slide-img" src="photo3.jpg"  alt=""/>
+            <img class="slide-img" src="photo4.jpg"  alt=""/>
+            <img class="slide-img" src="photo5.jpg"  alt=""/>
+            <img class="slide-img" src="photo6.jpg"  alt=""/>
+            <img class="slide-img" src="photo7.jpg"  alt=""/>
+            <img class="slide-img" src="photo8.jpg"  alt=""/>
+            <img class="slide-img" src="photo9.jpg"  alt=""/>
+            <img class="slide-img" src="photo10.jpg" alt=""/>
+            <!-- duplicate for seamless loop -->
+            <img class="slide-img" src="photo1.jpg"  alt=""/>
+            <img class="slide-img" src="photo2.jpg"  alt=""/>
+            <img class="slide-img" src="photo3.jpg"  alt=""/>
+            <img class="slide-img" src="photo4.jpg"  alt=""/>
+            <img class="slide-img" src="photo5.jpg"  alt=""/>
+            <img class="slide-img" src="photo6.jpg"  alt=""/>
+            <img class="slide-img" src="photo7.jpg"  alt=""/>
+            <img class="slide-img" src="photo8.jpg"  alt=""/>
+            <img class="slide-img" src="photo9.jpg"  alt=""/>
+            <img class="slide-img" src="photo10.jpg" alt=""/>
+          </div>
+        </div>
+      </div>
+
+
+
+
+
 
     <!-- RIGHT -->
     <div class="col-right">
@@ -384,6 +423,22 @@ async function addWish(){
 $('wishBtn').onclick=addWish;
 $('wishInput').onkeydown=e=>{if(e.key==='Enter')addWish();};
 loadWishes();
+
+// ── SLIDESHOW SCRIPT ──
+(function(){
+  const slides=document.querySelectorAll('#slideshow .slide');
+  if(!slides.length) return;
+  let idx=0;
+  function show(i){
+    slides.forEach(s=>s.classList.remove('active'));
+    slides[i].classList.add('active');
+  }
+  setInterval(()=>{
+    idx=(idx+1)%slides.length;
+    show(idx);
+  },4000);
+})();
+
 </script>
 </body>
 </html>
