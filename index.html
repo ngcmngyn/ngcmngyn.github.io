@@ -228,8 +228,8 @@
 
 <div class="palette-switch" id="paletteSwitcher">
   <div class="palette-switch-label">skin</div>
-  <div class="palette-dot pink" id="dotPink" title="dreamy pink" onclick="setPalette('pink')"></div>
-  <div class="palette-dot silver active" id="dotSilver" title="silver inox" onclick="setPalette('silver')"></div>
+  <div class="palette-dot pink active" id="dotPink" title="dreamy pink" onclick="setPalette('pink')"></div>
+  <div class="palette-dot silver" id="dotSilver" title="silver inox" onclick="setPalette('silver')"></div>
 </div>
 
 <div class="bg-canvas">
@@ -334,7 +334,7 @@
 
 <script>
 function setPalette(name){document.body.classList.toggle('silver',name==='silver');document.getElementById('dotPink').classList.toggle('active',name==='pink');document.getElementById('dotSilver').classList.toggle('active',name==='silver');localStorage.setItem('nogma-palette',name);}
-(function(){const saved=localStorage.getItem('nogma-palette');if(saved==='silver')setPalette('silver');})();
+(function(){const saved=localStorage.getItem("nogma-palette");if(saved==="silver"){setPalette("silver");}else{setPalette("pink");}})();
 
 const pContainer=document.getElementById('particles');
 const symbols=['✿','˚','·','✦','∘'];
