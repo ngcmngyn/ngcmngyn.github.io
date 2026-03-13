@@ -29,7 +29,7 @@
     /* SILVER: true metallic inox, WCAG AAA contrast, system fonts */
     body.silver {
       --orange:#222222; --pink:#444444; --peach:#333333;
-      --rose:#555555; --bg:#f0f0f0; --text:#111111;
+      --rose:#555555; --bg:#ffffff; --text:#111111;
       --muted:#555555; --card:rgba(255,255,255,0.95);
       --accent1:#222222; --accent2:#444444;
       --glass-bg:rgba(224,226,228,0.60);
@@ -226,12 +226,12 @@
     @media(max-width:700px) { .bento { grid-template-columns:1fr; } .col-right { width:100%; } .palette-switch { top:auto; bottom:20px; transform:none; } }
   </style>
 </head>
-<body>
+<body class="silver">
 
 <div class="palette-switch" id="paletteSwitcher">
   <div class="palette-switch-label">skin</div>
-  <div class="palette-dot pink active" id="dotPink" title="dreamy pink" onclick="setPalette('pink')"></div>
-  <div class="palette-dot silver" id="dotSilver" title="silver inox" onclick="setPalette('silver')"></div>
+  <div class="palette-dot pink" id="dotPink" title="dreamy pink" onclick="setPalette('pink')"></div>
+  <div class="palette-dot silver active" id="dotSilver" title="silver inox" onclick="setPalette('silver')"></div>
 </div>
 
 <div class="bg-canvas">
