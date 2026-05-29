@@ -50,14 +50,28 @@
     pointer-events: all;
     user-select: none;
   }
-  .logo .v { color: var(--gelb); }
+  .logo .v {
+    background: linear-gradient(90deg,var(--gelb),var(--gruen),var(--orange),var(--rot),var(--blau));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
   .logo .tag { font-weight: 400; opacity: 0.5; font-size: 0.85em; }
 
+  .gradient-text {
+    font-weight: 700;
+    background: linear-gradient(90deg,var(--gelb),var(--gruen),var(--orange),var(--rot),var(--blau));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
   nav {
-    text-align: right;
+    text-align: left;
     pointer-events: all;
     font-size: 0.78rem;
     line-height: 1.9;
+    width: max-content;
   }
   nav .tag { opacity: 0.4; display: block; }
   nav a {
@@ -156,11 +170,11 @@
   .lgelb .ltag, .lgelb .lname { color: var(--gelb); }
   .lgelb .items { color: var(--ink); margin-left: 2px; }
 
-  .lgruen  { top: 10%; right: -4%; animation-delay: 0.65s; text-align: right; }
+  .lgruen  { top: 10%; right: -4%; animation-delay: 0.65s; text-align: left; }
   .lgruen .ltag, .lgruen .lname { color: var(--gruen); }
   .lgruen .items { color: var(--ink); }
 
-  .lorange { bottom: 28%; right: -8%; animation-delay: 0.8s; text-align: right; }
+  .lorange { bottom: 28%; right: -8%; animation-delay: 0.8s; text-align: left; }
   .lorange .ltag, .lorange .lname { color: var(--orange); }
   .lorange .items { color: var(--ink); }
 
@@ -421,7 +435,7 @@
 <!-- FOOTER -->
 <footer>
   <span class="tag">&lt;footer&gt;</span><br>
-  ZVISIONRAUM © 2026 – ein ort zwischen laut und leise<br>
+  ZVISIONRAUM © 2026 – ein ort zwischen laut und leise · <span class="gradient-text">lieblingsfarbe</span><br>
   <span class="tag">&lt;/footer&gt;</span>
 </footer>
 
