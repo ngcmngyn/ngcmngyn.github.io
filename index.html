@@ -1,18 +1,18 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Z&lt;VISION&gt;RAUM</title>
-<link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
-<style>
-  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-  :root {
-    --bg: #f0ede6;
-    --ink: #111;
-    --gelb: #e6a800;
-    --gruen: #3a9a3a;
+</div>
+
+  <!-- INTRO -->
+  <div class="intro">
+    <span class="tag">&lt;p class="intro"&gt;</span>
+    klick auf deine <em>lieblingsfarbe</em><br>
+    und tritt ein in den zwischenraum.
+    <span class="tag">&lt;/p&gt;</span>
+  </div>
+
+</main>
     --rot: #d63025;
     --blau: #3a6abf;
     --orange: #e07020;
@@ -95,7 +95,7 @@
   /* Tentacle paths — animate on load */
   .tentacle {
     fill: none;
-    stroke-width: 22;
+    stroke-width: 16;
     stroke-linecap: round;
     stroke-linejoin: round;
     stroke-dasharray: 600;
@@ -106,7 +106,7 @@
   }
   .tentacle:hover {
     filter: brightness(1.12) drop-shadow(0 0 12px currentColor);
-    stroke-width: 26;
+    stroke-width: 20;
   }
   @keyframes draw {
     to { stroke-dashoffset: 0; }
@@ -174,17 +174,15 @@
 
   /* ── INTRO TEXT ── */
   .intro {
-    position: absolute;
-    bottom: 60px;
-    left: 50%;
-    transform: translateX(-50%);
+    position: relative;
+    margin: 12px auto 0;
     text-align: center;
     font-family: var(--mono);
     font-size: 0.78rem;
-    line-height: 2;
+    line-height: 1.6;
     opacity: 0;
     animation: fadeIn 0.6s 1.3s forwards;
-    white-space: nowrap;
+    white-space: normal;
     pointer-events: none;
   }
   .intro .tag { opacity: 0.4; display: block; font-size: 0.65rem; }
@@ -365,32 +363,32 @@
 
       <!-- GELB: top-left tentacle -->
       <path class="tentacle t-gelb" id="path-gelb"
-        d="M200,200 C180,192 155,175 140,160 S105,136 80,132 S65,130 65,130"/>
-      <path class="hit" d="M200,200 C180,192 155,175 140,160 S105,136 80,132 S65,130 65,130"
+        d="M200,200 C185,195 165,185 150,170 S130,146 115,135 S90,122 75,118"/>
+      <path class="hit" d="M200,200 C185,195 165,185 150,170 S130,146 115,135 S90,122 75,118"
         onclick="openPopup('gelb')"/>
 
       <!-- GRÜN: top-center-right tentacle -->
       <path class="tentacle t-gruen" id="path-gruen"
-        d="M200,200 C205,175 208,148 210,122 S214,84 218,70 S220,54 220,50"/>
-      <path class="hit" d="M200,200 C205,175 208,148 210,122 S214,84 218,70 S220,54 220,50"
+        d="M200,200 C206,180 212,160 212,140 S215,110 216,92 S217,72 218,58"/>
+      <path class="hit" d="M200,200 C206,180 212,160 212,140 S215,110 216,92 S217,72 218,58"
         onclick="openPopup('gruen')"/>
 
       <!-- ORANGE: right tentacle -->
       <path class="tentacle t-orange" id="path-orange"
-        d="M200,200 C220,200 245,195 265,205 S295,217 318,218 S335,218 338,218"/>
-      <path class="hit" d="M200,200 C220,200 245,195 265,205 S295,217 318,218 S335,218 338,218"
+        d="M200,200 C218,198 235,190 250,188 S280,192 300,200 S325,210 338,220"/>
+      <path class="hit" d="M200,200 C218,198 235,190 250,188 S280,192 300,200 S325,210 338,220"
         onclick="openPopup('orange')"/>
 
       <!-- ROT: bottom-left tentacle -->
       <path class="tentacle t-rot" id="path-rot"
-        d="M200,200 C190,215 178,233 160,250 S130,277 102,292 S85,297 82,295"/>
-      <path class="hit" d="M200,200 C190,215 178,233 160,250 S130,277 102,292 S85,297 82,295"
+        d="M200,200 C192,216 180,235 165,250 S138,275 118,288 S95,300 82,305"/>
+      <path class="hit" d="M200,200 C192,216 180,235 165,250 S138,275 118,288 S95,300 82,305"
         onclick="openPopup('rot')"/>
 
       <!-- BLAU: bottom-center tentacle -->
       <path class="tentacle t-blau" id="path-blau"
-        d="M200,200 C205,225 212,252 215,274 S220,304 226,327 S227,337 228,338"/>
-      <path class="hit" d="M200,200 C205,225 212,252 215,274 S220,304 226,327 S227,337 228,338"
+        d="M200,200 C205,228 210,248 213,268 S218,292 222,312 S224,328 228,338"/>
+      <path class="hit" d="M200,200 C205,228 210,248 213,268 S218,292 222,312 S224,328 228,338"
         onclick="openPopup('blau')"/>
 
       <!-- Dots above orb -->
@@ -408,15 +406,16 @@
 
     </svg>
 
-    <!-- INTRO -->
-    <div class="intro">
-      <span class="tag">&lt;p class="intro"&gt;</span>
-      klick auf deine <em>lieblingsfarbe</em><br>
-      und tritt ein in den zwischenraum.
-      <span class="tag">&lt;/p&gt;</span>
-    </div>
-
   </div>
+
+  <!-- INTRO -->
+  <div class="intro">
+    <span class="tag">&lt;p class="intro"&gt;</span>
+    klick auf deine <em>lieblingsfarbe</em><br>
+    und tritt ein in den zwischenraum.
+    <span class="tag">&lt;/p&gt;</span>
+  </div>
+
 </main>
 
 <!-- FOOTER -->
