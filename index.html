@@ -97,6 +97,7 @@
     fill: none;
     stroke-width: 22;
     stroke-linecap: round;
+    stroke-linejoin: round;
     stroke-dasharray: 600;
     stroke-dashoffset: 600;
     animation: draw 1.1s cubic-bezier(.4,0,.2,1) forwards;
@@ -364,32 +365,32 @@
 
       <!-- GELB: top-left tentacle -->
       <path class="tentacle t-gelb" id="path-gelb"
-        d="M200,200 C180,190 155,175 135,160 C115,145 90,135 65,130"/>
-      <path class="hit" d="M200,200 C180,190 155,175 135,160 C115,145 90,135 65,130"
+        d="M200,200 C180,192 155,175 140,160 S105,136 80,132 S65,130 65,130"/>
+      <path class="hit" d="M200,200 C180,192 155,175 140,160 S105,136 80,132 S65,130 65,130"
         onclick="openPopup('gelb')"/>
 
       <!-- GRÜN: top-center-right tentacle -->
       <path class="tentacle t-gruen" id="path-gruen"
-        d="M200,200 C205,175 208,148 210,122 C212,96 215,72 220,50"/>
-      <path class="hit" d="M200,200 C205,175 208,148 210,122 C212,96 215,72 220,50"
+        d="M200,200 C205,175 208,148 210,122 S214,84 218,70 S220,54 220,50"/>
+      <path class="hit" d="M200,200 C205,175 208,148 210,122 S214,84 218,70 S220,54 220,50"
         onclick="openPopup('gruen')"/>
 
       <!-- ORANGE: right tentacle -->
       <path class="tentacle t-orange" id="path-orange"
-        d="M200,200 C220,200 245,195 268,200 C291,205 315,215 338,218"/>
-      <path class="hit" d="M200,200 C220,200 245,195 268,200 C291,205 315,215 338,218"
+        d="M200,200 C220,200 245,195 265,205 S295,217 318,218 S335,218 338,218"/>
+      <path class="hit" d="M200,200 C220,200 245,195 265,205 S295,217 318,218 S335,218 338,218"
         onclick="openPopup('orange')"/>
 
       <!-- ROT: bottom-left tentacle -->
       <path class="tentacle t-rot" id="path-rot"
-        d="M200,200 C185,215 165,230 145,248 C125,266 105,280 82,295"/>
-      <path class="hit" d="M200,200 C185,215 165,230 145,248 C125,266 105,280 82,295"
+        d="M200,200 C190,215 178,233 160,250 S130,277 102,292 S85,297 82,295"/>
+      <path class="hit" d="M200,200 C190,215 178,233 160,250 S130,277 102,292 S85,297 82,295"
         onclick="openPopup('rot')"/>
 
       <!-- BLAU: bottom-center tentacle -->
       <path class="tentacle t-blau" id="path-blau"
-        d="M200,200 C205,225 208,250 212,272 C216,294 222,315 228,338"/>
-      <path class="hit" d="M200,200 C205,225 208,250 212,272 C216,294 222,315 228,338"
+        d="M200,200 C205,225 212,252 215,274 S220,304 226,327 S227,337 228,338"/>
+      <path class="hit" d="M200,200 C205,225 212,252 215,274 S220,304 226,327 S227,337 228,338"
         onclick="openPopup('blau')"/>
 
       <!-- Dots above orb -->
