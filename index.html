@@ -50,12 +50,12 @@
     pointer-events: all;
     user-select: none;
   }
-  .logo .v {
-    background: linear-gradient(90deg,var(--gelb),var(--gruen),var(--orange),var(--rot),var(--blau));
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-  }
+  .logo .v { display: inline-block; }
+  .col-gruen  { color: var(--gruen); }
+  .col-gelb   { color: var(--gelb); }
+  .col-rot    { color: var(--rot); }
+  .col-blau   { color: var(--blau); }
+  .col-orange { color: var(--orange); }
   .logo .tag { font-weight: 400; opacity: 0.5; font-size: 0.85em; }
 
   .gradient-text {
@@ -79,6 +79,7 @@
     color: var(--ink);
     text-decoration: none;
     opacity: 0.7;
+    padding-left: 10px;
     transition: opacity 0.2s;
   }
   nav a:hover { opacity: 1; }
@@ -310,7 +311,7 @@
 <!-- HEADER -->
 <header>
   <a class="logo" href="#" onclick="closePopup()">
-    Z<span class="tag">&lt;</span><span class="v">VISION</span><span class="tag">&gt;</span>RAUM<span class="tag">&lt;/VISION&gt;</span>
+    Z<span class="tag">&lt;</span><span class="v"><span class="col-gruen">V</span><span class="col-gelb">I</span><span class="col-rot">S</span><span class="col-blau">I</span><span class="col-orange">O</span><span class="col-gruen">N</span></span><span class="tag">&gt;</span>RAUM<span class="tag">&lt;/VISION&gt;</span>
   </a>
   <nav>
     <span class="tag">&lt;menu&gt;</span>
@@ -384,12 +385,12 @@
 
       <!-- GRÜN: top-center-right tentacle -->
       <path class="tentacle t-gruen" id="path-gruen"
-        d="M 203,154
-           C 207,140 204,126 208,112
-           C 212, 98 218, 86 214, 72
-           C 210, 58 206, 48 210, 36"/>
+        d="M 210,154
+           C 214,140 211,126 215,112
+           C 219, 98 225, 86 221, 72
+           C 217, 58 213, 48 217, 36"/>
       <path class="hit"
-        d="M 203,154 C 207,140 204,126 208,112 C 212,98 218,86 214,72 C 210,58 206,48 210,36"
+        d="M 210,154 C 214,140 211,126 215,112 C 219,98 225,86 221,72 C 217,58 213,48 217,36"
         onclick="openPopup('gruen')"/>
 
       <!-- ORANGE: right tentacle -->
@@ -478,7 +479,11 @@
 <!-- FOOTER -->
 <footer>
   <span class="tag">&lt;footer&gt;</span><br>
-  ZVISIONRAUM © 2026 – ein ort zwischen laut und leise<br>
+    ZVISIONRAUM © 2026 – ein ort zwischen laut und leise · <span class="rainbow">
+      <span class="col-gruen">l</span><span class="col-gelb">i</span><span class="col-rot">e</span><span class="col-blau">b</span><span class="col-orange">l</span>
+      <span class="col-gruen">i</span><span class="col-gelb">n</span><span class="col-rot">g</span><span class="col-blau">s</span><span class="col-orange">f</span>
+      <span class="col-gruen">a</span><span class="col-gelb">r</span><span class="col-rot">b</span><span class="col-blau">e</span>
+    </span><br>
   <span class="tag">&lt;/footer&gt;</span>
 </footer>
 
