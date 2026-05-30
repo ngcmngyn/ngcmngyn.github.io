@@ -141,13 +141,8 @@
   }
 
   /* Center orb */
-  .orb-outer {
-    animation: orbIn 0.6s 0.9s cubic-bezier(.34,1.56,.64,1) both;
-  }
-  @keyframes orbIn {
-    from { transform: scale(0); transform-origin: center; }
-    to   { transform: scale(1); }
-  }
+    .orb-group { animation: orbIn 0.65s 0.85s cubic-bezier(.34,1.56,.64,1) both; }
+  @keyframes orbIn { from{transform:scale(0);transform-origin:200px 200px} to{transform:scale(1)} }
 
   /* Dot decorations above orb */
   .dots { animation: fadeIn 0.4s 1.1s both; }
@@ -166,25 +161,25 @@
   .label-group .ltag { font-size: 0.65rem; opacity: 0.55; }
   .label-group .lname { font-weight: 700; }
 
-  .lgelb   { top: 22%; left: -2%; animation-delay: 0.5s; }
-  .lgelb .ltag, .lgelb .lname { color: var(--gelb); }
-  .lgelb .items { color: var(--ink); margin-left: 2px; }
+  .lgelb   { top: 22%; left: -2%; animation-delay: 0.5s; text-align: left; }
+  .lgelb .ltag, .lgelb .lname { color: var(--gelb); display: block; }
+  .lgelb .items { color: var(--ink); margin-left: 10px; text-align: left; }
 
   .lgruen  { top: 10%; right: -4%; animation-delay: 0.65s; text-align: left; }
-  .lgruen .ltag, .lgruen .lname { color: var(--gruen); }
-  .lgruen .items { color: var(--ink); }
+  .lgruen .ltag, .lgruen .lname { color: var(--gruen); display: block; }
+  .lgruen .items { color: var(--ink); margin-left: 10px; text-align: left; }
 
   .lorange { bottom: 28%; right: -8%; animation-delay: 0.8s; text-align: left; }
-  .lorange .ltag, .lorange .lname { color: var(--orange); }
-  .lorange .items { color: var(--ink); }
+  .lorange .ltag, .lorange .lname { color: var(--orange); display: block; }
+  .lorange .items { color: var(--ink); margin-left: 10px; text-align: left; }
 
-  .lrot    { bottom: 15%; left: -4%; animation-delay: 0.95s; }
-  .lrot .ltag, .lrot .lname { color: var(--rot); }
-  .lrot .items { color: var(--ink); }
+  .lrot    { bottom: 15%; left: -4%; animation-delay: 0.95s; text-align: left; }
+  .lrot .ltag, .lrot .lname { color: var(--rot); display: block; }
+  .lrot .items { color: var(--ink); margin-left: 10px; text-align: left; }
 
-  .lblau   { bottom: 5%; right: 20%; animation-delay: 1.1s; }
-  .lblau .ltag, .lblau .lname { color: var(--blau); }
-  .lblau .items { color: var(--ink); }
+  .lblau   { bottom: 5%; right: 20%; animation-delay: 1.1s; text-align: left; }
+  .lblau .ltag, .lblau .lname { color: var(--blau); display: block; }
+  .lblau .items { color: var(--ink); margin-left: 10px; text-align: left; }
 
   /* ── INTRO TEXT ── */
   .intro {
@@ -199,6 +194,8 @@
     white-space: normal;
     pointer-events: none;
   }
+  .intro .tag { display: block; opacity: 0.4; font-size: 0.65rem; }
+  .intro em { display: inline-block; margin-left: 8px; }
   .intro .tag { opacity: 0.4; display: block; font-size: 0.65rem; }
   .intro strong { font-style: italic; }
   .intro em {
@@ -377,45 +374,91 @@
 
       <!-- GELB: top-left tentacle -->
       <path class="tentacle t-gelb" id="path-gelb"
-        d="M200,200 C186,194 174,194 160,190 S132,170 118,166 S88,150 76,142"/>
-      <path class="hit" d="M200,200 C186,194 174,194 160,190 S132,170 118,166 S88,150 76,142"
+        d="M 185,160
+           C 178,152 165,148 152,150
+           C 139,152 128,158 118,154
+           C 108,150  96,140  84,136"/>
+      <path class="hit"
+        d="M 185,160 C 178,152 165,148 152,150 C 139,152 128,158 118,154 C 108,150 96,140 84,136"
         onclick="openPopup('gelb')"/>
 
       <!-- GRÜN: top-center-right tentacle -->
       <path class="tentacle t-gruen" id="path-gruen"
-        d="M200,200 C204,182 208,170 212,156 S216,132 218,116 S221,96 222,76"/>
-      <path class="hit" d="M200,200 C204,182 208,170 212,156 S216,132 218,116 S221,96 222,76"
+        d="M 203,154
+           C 207,140 204,126 208,112
+           C 212, 98 218, 86 214, 72
+           C 210, 58 206, 48 210, 36"/>
+      <path class="hit"
+        d="M 203,154 C 207,140 204,126 208,112 C 212,98 218,86 214,72 C 210,58 206,48 210,36"
         onclick="openPopup('gruen')"/>
 
       <!-- ORANGE: right tentacle -->
       <path class="tentacle t-orange" id="path-orange"
-        d="M200,200 C218,198 232,196 246,198 S270,206 286,214 S310,226 332,236"/>
-      <path class="hit" d="M200,200 C218,198 232,196 246,198 S270,206 286,214 S310,226 332,236"
+        d="M 246,196
+           C 260,192 272,198 286,194
+           C 300,190 312,182 326,186
+           C 340,190 350,198 362,196"/>
+      <path class="hit"
+        d="M 246,196 C 260,192 272,198 286,194 C 300,190 312,182 326,186 C 340,190 350,198 362,196"
         onclick="openPopup('orange')"/>
 
       <!-- ROT: bottom-left tentacle -->
       <path class="tentacle t-rot" id="path-rot"
-        d="M200,200 C194,216 184,234 172,253 S146,282 128,294 S104,304 88,310"/>
-      <path class="hit" d="M200,200 C194,216 184,234 172,253 S146,282 128,294 S104,304 88,310"
+        d="M 172,238
+           C 164,250 154,258 144,270
+           C 134,282 126,292 116,300
+           C 106,308  94,312  86,322"/>
+      <path class="hit"
+        d="M 172,238 C 164,250 154,258 144,270 C 134,282 126,292 116,300 C 106,308 94,312 86,322"
         onclick="openPopup('rot')"/>
 
       <!-- BLAU: bottom-center tentacle -->
-      <path class="tentacle t-blau" id="path-blau"
-        d="M200,200 C206,228 212,250 216,272 S220,296 224,314 S226,326 230,338"/>
-      <path class="hit" d="M200,200 C206,228 212,250 216,272 S220,296 224,314 S226,326 230,338"
+       <path class="tentacle t-blau" id="path-blau"
+        d="M 222,242
+           C 228,256 222,268 228,282
+           C 234,296 244,304 242,318
+           C 240,332 234,340 238,352"/>
+      <path class="hit"
+        d="M 222,242 C 228,256 222,268 228,282 C 234,296 244,304 242,318 C 240,332 234,340 238,352"
         onclick="openPopup('blau')"/>
 
       <!-- Dots above orb -->
       <g class="dots">
-        <circle cx="193" cy="125" r="6" fill="#111"/>
-        <circle cx="207" cy="110" r="6" fill="#111"/>
+        <circle cx="193" cy="125" r="8.5" fill="#111"/>
+        <circle cx="207" cy="110" r="9" fill="#111"/>
       </g>
 
       <!-- Center orb -->
-      <g class="orb-outer">
-        <circle cx="200" cy="200" r="46" fill="#111"/>
-        <circle cx="200" cy="200" r="30" fill="var(--bg)"/>
-        <circle cx="200" cy="200" r="14" fill="#111"/>
+      <g class="orb-group">
+        <!-- outer ring: irregular -->
+        <path d="
+          M 200,154
+          C 218,153 236,162 244,178
+          C 252,194 251,214 242,228
+          C 233,242 217,250 200,250
+          C 183,250 167,242 158,228
+          C 149,214 148,194 156,178
+          C 164,162 182,155 200,154 Z"
+          fill="#111"/>
+        <!-- white gap: also slightly irregular -->
+        <path d="
+          M 200,168
+          C 212,167 222,174 227,184
+          C 232,194 231,207 225,215
+          C 219,223 210,228 200,228
+          C 190,228 181,223 175,215
+          C 169,207 168,194 173,184
+          C 178,174 188,169 200,168 Z"
+          fill="var(--bg)"/>
+        <!-- inner pupil: slightly off-center, irregular -->
+        <path d="
+          M 200,187
+          C 206,186 212,190 214,196
+          C 216,202 214,209 209,213
+          C 204,217 197,217 192,213
+          C 187,209 185,202 187,196
+          C 189,190 194,188 200,187 Z"
+          fill="#111"/>
       </g>
 
     </svg>
@@ -435,7 +478,7 @@
 <!-- FOOTER -->
 <footer>
   <span class="tag">&lt;footer&gt;</span><br>
-  ZVISIONRAUM © 2026 – ein ort zwischen laut und leise · <span class="gradient-text">lieblingsfarbe</span><br>
+  ZVISIONRAUM © 2026 – ein ort zwischen laut und leise<br>
   <span class="tag">&lt;/footer&gt;</span>
 </footer>
 
