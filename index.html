@@ -166,7 +166,7 @@
   .lgelb .ltag, .lgelb .lname { color: var(--gelb); display: block; }
   .lgelb .items { color: var(--ink); margin-left: 10px; text-align: left; }
 
-  .lgruen  { top: 10%; right: -2%; animation-delay: 0.65s; text-align: left; }
+  .lgruen  { top: 10%; right: 0%; animation-delay: 0.65s; text-align: left; }
   .lgruen .ltag, .lgruen .lname { color: var(--gruen); display: block; }
   .lgruen .items { color: var(--ink); margin-left: 10px; text-align: left; }
 
@@ -195,7 +195,7 @@
     white-space: normal;
     pointer-events: none;
   }
-  .intro .tag { display: block; opacity: 0.4; font-size: 0.65rem; text-align: left; margin-left: 20px; }
+  .intro .tag { display: block; opacity: 0.4; font-size: 0.65rem; text-align: left; margin-left: -10px; }
   .intro-content { text-align: center; margin: 6px 12px; }
   .intro em { display: inline; }
   .intro .tag { opacity: 0.4; display: block; font-size: 0.65rem; }
@@ -382,12 +382,12 @@
 
       <!-- GRÜN: top-center-right tentacle -->
       <path class="tentacle t-gruen" id="path-gruen"
-        d="M 210,154
-           C 214,140 211,126 215,112
-           C 219, 98 225, 86 221, 72
-           C 217, 58 213, 48 217, 36"/>
+        d="M 215,154
+           C 219,140 216,126 220,112
+           C 224, 98 230, 86 226, 72
+           C 222, 58 218, 48 222, 36"/>
       <path class="hit"
-        d="M 210,154 C 214,140 211,126 215,112 C 219,98 225,86 221,72 C 217,58 213,48 217,36"
+        d="M 215,154 C 219,140 216,126 220,112 C 224,98 230,86 226,72 C 222,58 218,48 222,36"
         onclick="openPopup('gruen')"/>
 
       <!-- ORANGE: right tentacle -->
@@ -422,40 +422,40 @@
 
       <!-- Dots above orb -->
       <g class="dots">
-        <circle cx="193" cy="125" r="8.5" fill="#111"/>
-        <circle cx="207" cy="110" r="9" fill="#111"/>
+        <circle cx="200" cy="125" r="8.5" fill="#111"/>
+        <circle cx="230" cy="110" r="9" fill="#111"/>
       </g>
 
       <!-- Center orb -->
       <g class="orb-group">
-        <!-- outer ring: irregular -->
+        <!-- outer ring: centered and thinner -->
         <path d="
-          M 200,154
-          C 218,153 236,162 244,178
-          C 252,194 251,214 242,228
-          C 233,242 217,250 200,250
-          C 183,250 167,242 158,228
-          C 149,214 148,194 156,178
-          C 164,162 182,155 200,154 Z"
+          M 200,156
+          C 220,154 238,166 244,180
+          C 250,196 248,214 238,228
+          C 228,242 212,250 200,250
+          C 188,250 172,242 162,228
+          C 152,214 150,196 156,180
+          C 162,166 180,154 200,156 Z"
           fill="#111"/>
-        <!-- white gap: also slightly irregular -->
+        <!-- white gap: larger gap for more contrast -->
         <path d="
-          M 200,168
-          C 212,167 222,174 227,184
-          C 232,194 231,207 225,215
-          C 219,223 210,228 200,228
-          C 190,228 181,223 175,215
-          C 169,207 168,194 173,184
-          C 178,174 188,169 200,168 Z"
+          M 200,172
+          C 212,171 224,179 228,190
+          C 232,201 231,214 224,223
+          C 218,232 207,238 200,238
+          C 193,238 182,232 176,223
+          C 169,214 168,201 172,190
+          C 176,179 188,171 200,172 Z"
           fill="var(--bg)"/>
-        <!-- inner pupil: slightly off-center, irregular -->
+        <!-- inner pupil: smaller and centered -->
         <path d="
-          M 200,187
-          C 206,186 212,190 214,196
-          C 216,202 214,209 209,213
-          C 204,217 197,217 192,213
-          C 187,209 185,202 187,196
-          C 189,190 194,188 200,187 Z"
+          M 200,196
+          C 204,194 208,196 209,200
+          C 210,204 208,208 204,210
+          C 200,212 196,210 192,208
+          C 190,204 190,200 192,196
+          C 194,194 197,193 200,196 Z"
           fill="#111"/>
       </g>
 
