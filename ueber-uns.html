@@ -1,33 +1,137 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Über uns — ZVISIONRAUM</title>
-  <style>
-    body{font-family:system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial; padding:28px;}
-    header{display:flex;justify-content:space-between;align-items:center;margin-bottom:24px}
-    nav a{margin-left:12px;color:#111;text-decoration:none}
-    .logo{font-weight:700}
-    .logo .cursive{font-family:'Comic Sans MS', 'Comic Sans', 'Segoe Print', cursive; font-weight:700}
-    .logo .tag { font-weight: 400; opacity: 0.7; font-size: 0.88rem; }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Z&lt;VISION&gt;RAUM</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg: #f0ede6;
+    --ink: #111;
+    --gelb: #e6a800;
+    --gruen: #3a9a3a;
+    --rot: #d63025;
+    --blau: #3a6abf;
+    --orange: #e07020;
+    --mono: 'Space Mono', monospace;
+    --serif: 'Instrument Serif', serif;
+  }
+
+  html, body {
+    height: 100%;
+    background: var(--bg);
+    color: var(--ink);
+    font-family: var(--mono);
+    overflow: hidden;
+  }
+
+  /* ── HEADER ── */
+  header {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    padding: 28px 36px 0;
+    pointer-events: none;
+  }
+
+  .logo {
+    font-family: var(--mono);
+    font-size: 1.4rem;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    text-decoration: none;
+    color: var(--ink);
+    pointer-events: all;
+    user-select: none;
+  }
+  .logo .cursive { font-family: 'Comic Sans MS', 'Comic Sans', 'Segoe Print', cursive; font-weight: 700; }
+  .logo .v { display: inline-block; }
+  .col-gruen  { color: var(--gruen); }
+  .col-gelb   { color: var(--gelb); }
+  .col-rot    { color: var(--rot); }
+  .col-blau   { color: var(--blau); }
+  .col-orange { color: var(--orange); }
+  .logo .tag { font-weight: 400; opacity: 0.35; font-size: 0.88rem; }
+
+  nav {
+    text-align: left;
+    pointer-events: all;
+    font-size: 0.78rem;
+    line-height: 1.9;
+    width: max-content;
+  }
+  nav .tag { opacity: 0.4; display: block; }
+  nav a {
+    display: block;
+    color: var(--ink);
+    text-decoration: none;
+    opacity: 0.7;
+    padding-left: 10px;
+    transition: opacity 0.2s;
+  }
+  nav a:hover { opacity: 1; }
+
+  .page-content {
+    position: relative;
+    padding-top: 180px;
+    text-align: center;
+    font-family: var(--mono);
+    font-size: 0.88rem;
+    color: var(--ink);
+  }
+  .page-content a {
+    color: var(--ink);
+    text-decoration: underline;
+    opacity: 0.9;
+    pointer-events: all;
+  }
+
+  /* Footer */
+  footer {
+    position: fixed;
+    bottom: 0; left: 0; right: 0;
+    text-align: center;
+    font-family: var(--mono);
+    font-size: 0.6rem;
+    opacity: 0.35;
+    padding: 10px;
+    pointer-events: none;
+  }
+  footer .tag { opacity: 0.6; }
+</style>
 </head>
 <body>
-  <header>
-    <a class="logo" href="index.html"><span class="cursive">Z</span>VISION<span class="cursive">RAUM</span></a>
-    <nav>
-      <a href="ueber-uns.html">über uns</a>
-      <a href="kontakt.html">kontakt</a>
-      <a href="impressum.html">impressum</a>
-    </nav>
-  </header>
-  <main>
-    <h1>Über uns</h1>
-    <p>Willkommen im ZVISIONRAUM — ein Ort zwischen laut und leise. Hier entsteht Raum für Begegnung, Ideen und gemeinschaftliche Projekte.</p>
-  </main>
-  <footer style="margin-top:40px;color:#666;font-size:0.9rem">
-    ZVISIONRAUM © 2026
-  </footer>
+
+<!-- HEADER -->
+<header>
+  <a class="logo" href="index.html">
+    <span class="cursive">Z</span><span class="tag">&lt;</span><span class="v"><span class="col-gruen">V</span><span class="col-gelb">I</span><span class="col-rot">S</span><span class="col-blau">I</span><span class="col-orange">O</span><span class="col-gruen">N</span></span><span class="tag">&gt;</span><span class="cursive">RAUM</span><span class="tag">&lt;/VISION&gt;</span>
+  </a>
+  <nav>
+    <span class="tag">&lt;menu&gt;</span>
+    <a href="ueber-uns.html">über uns</a>
+    <a href="kontakt.html">kontakt</a>
+    <a href="impressum.html">impressum</a>
+    <span class="tag">&lt;/menu&gt;</span>
+  </nav>
+</header>
+
+<main class="page-content">
+  <p>baubaubaustelle</p>
+</main>
+
+<!-- FOOTER -->
+<footer>
+  <span class="tag">&lt;footer&gt;</span><br>
+    ZVISIONRAUM © 2026 – ein ort zwischen laut und leise<br>
+  <span class="tag">&lt;/footer&gt;</span>
+</footer>
+
 </body>
 </html>
