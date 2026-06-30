@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Z&lt;VISION&gt;RAUM</title>
-<link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Instrument+Serif:ital@0;1&family=Gravitas+One&family=Fredoka+One&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -41,10 +41,6 @@
   }
 
   .logo {
-    display: inline-flex;
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 0.2rem;
     font-family: var(--mono);
     font-size: 1.4rem;
     font-weight: 700;
@@ -54,25 +50,7 @@
     pointer-events: all;
     user-select: none;
   }
-  .logo .title-main {
-    font-family: 'Gravitas One', cursive;
-    font-size: 2rem;
-    line-height: 0.95;
-    letter-spacing: 0.02em;
-  }
-  .logo .title-vision {
-    font-family: 'Fredoka One', cursive;
-    font-size: 1.05rem;
-    line-height: 1;
-    letter-spacing: 0.08em;
-    opacity: 0.95;
-  }
-  .logo .title-z,
-  .logo .title-raum {
-    display: inline-block;
-  }
-  .logo .title-z { margin-right: 0.18em; }
-  .logo .title-raum { font-weight: 400; }
+  .logo .cursive { font-family: 'Comic Sans MS', 'Comic Sans', 'Segoe Print', cursive; font-weight: 700; }
   .logo .v { display: inline-block; }
   .col-gruen  { color: var(--gruen); }
   .col-gelb   { color: var(--gelb); }
@@ -133,8 +111,7 @@
 <!-- HEADER -->
 <header>
   <a class="logo" href="index.html">
-    <span class="title-main"><span class="title-z">Z</span><span class="title-raum">Raum</span></span>
-    <span class="title-vision">VISION</span>
+    <span class="cursive">Z</span><span class="tag">&lt;</span><span class="v"><span class="col-gruen">V</span><span class="col-gelb">I</span><span class="col-rot">S</span><span class="col-blau">I</span><span class="col-orange">O</span><span class="col-gruen">N</span></span><span class="tag">&gt;</span><span class="cursive">RAUM</span><span class="tag">&lt;/VISION&gt;</span>
   </a>
   <nav>
     <a href="index.html"><span class="tag">&lt;menu&gt;</span></a>

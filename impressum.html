@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Z&lt;VISION&gt;RAUM</title>
-<link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Instrument+Serif:ital@0;1&family=Gravitas+One&family=Fredoka+One&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -41,10 +41,6 @@
   }
 
   .logo {
-    display: inline-flex;
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 0.2rem;
     font-family: var(--mono);
     font-size: 1.4rem;
     font-weight: 700;
@@ -54,32 +50,16 @@
     pointer-events: all;
     user-select: none;
   }
-  .logo .title-main {
-    font-family: 'Gravitas One', cursive;
-    font-size: 2rem;
-    line-height: 0.95;
-    letter-spacing: 0.02em;
-  }
-  .logo .title-vision {
-    font-family: 'Fredoka One', cursive;
-    font-size: 1.05rem;
-    line-height: 1;
-    letter-spacing: 0.08em;
-    opacity: 0.95;
-  }
-  .logo .title-z,
-  .logo .title-raum {
-    display: inline-block;
-  }
-  .logo .title-z { margin-right: 0.18em; }
-  .logo .title-raum { font-weight: 400; }
+  .logo .cursive { font-family: 'Comic Sans MS', 'Comic Sans', 'Segoe Print', cursive; font-weight: 700; }
   .logo .v { display: inline-block; }
   .col-gruen  { color: var(--gruen); }
   .col-gelb   { color: var(--gelb); }
   .col-rot    { color: var(--rot); }
   .col-blau   { color: var(--blau); }
   .col-orange { color: var(--orange); }
-  .logo .tag { font-weight: 400; opacity: 0.35; font-size: 0.88rem; }
+  .logo .tag { font-weight: 400; opacity: 0.7; font-size: 0.88rem; }
+
+  /* removed .gradient-text — per user request, using per-letter rainbow spans instead */
 
   nav {
     text-align: left;
@@ -88,31 +68,221 @@
     line-height: 1.9;
     width: max-content;
   }
-    nav .tag { opacity: 0.4; display: block; }
-    nav a { 
-      display: block; 
-      padding-left: 10px; 
-      color: var(--ink); 
-      text-decoration: none; 
-      opacity: 0.7; 
-      transition: opacity 0.2s; 
-    }
+  nav .tag { opacity: 0.4; display: block; }
+  nav a {
+    display: block;
+    color: var(--ink);
+    text-decoration: none;
+    opacity: 0.7;
+    padding-left: 10px;
+    transition: opacity 0.2s;
+  }
   nav a:hover { opacity: 1; }
 
-  .page-content {
+  /* ── MAIN STAGE ── */
+  .stage {
+    position: fixed;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+
+  /* ── SVG DIAGRAM ── */
+  .diagram-wrap {
     position: relative;
-    padding-top: 180px;
+    width: min(520px, 90vw);
+    aspect-ratio: 1;
+  }
+
+  svg.diagram {
+    width: 100%;
+    height: 100%;
+    overflow: visible;
+  }
+
+  /* Tentacle paths — animate on load */
+  .tentacle {
+    fill: none;
+    stroke-width: 14;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    stroke-dasharray: 600;
+    stroke-dashoffset: 600;
+    animation: draw 1.1s cubic-bezier(.4,0,.2,1) forwards;
+    cursor: pointer;
+    transition: filter 0.2s, stroke-width 0.2s;
+  }
+  .tentacle:hover {
+    filter: brightness(1.12) drop-shadow(0 0 12px currentColor);
+    stroke-width: 18;
+  }
+  @keyframes draw {
+    to { stroke-dashoffset: 0; }
+  }
+
+  .t-gelb  { stroke: var(--gelb);  animation-delay: 0.1s; }
+  .t-gruen { stroke: var(--gruen); animation-delay: 0.25s; }
+  .t-orange{ stroke: var(--orange);animation-delay: 0.4s; }
+  .t-rot   { stroke: var(--rot);   animation-delay: 0.55s; }
+  .t-blau  { stroke: var(--blau);  animation-delay: 0.7s; }
+
+  /* Hit areas (wider, invisible) */
+  .hit {
+    fill: none;
+    stroke: transparent;
+    stroke-width: 44;
+    cursor: pointer;
+  }
+
+  /* Center orb */
+    .orb-group { animation: orbIn 0.65s 0.85s cubic-bezier(.34,1.56,.64,1) both; }
+  @keyframes orbIn { from{transform:scale(0);transform-origin:200px 200px} to{transform:scale(1)} }
+
+  /* Dot decorations above orb */
+  .dots { animation: fadeIn 0.4s 1.1s both; }
+  @keyframes fadeIn { from{opacity:0} to{opacity:1} }
+
+  /* ── LABELS ── */
+  .label-group {
+    position: absolute;
+    font-family: var(--mono);
+    font-size: 0.72rem;
+    line-height: 1.7;
+    pointer-events: none;
+    opacity: 0;
+    animation: fadeIn 0.5s forwards;
+  }
+  .label-group .ltag { font-size: 0.65rem; opacity: 0.55; }
+  .label-group .lname { font-weight: 700; }
+
+  .lgelb   { top: 22%; left: -2%; animation-delay: 0.5s; text-align: left; }
+  .lgelb .ltag, .lgelb .lname { color: var(--gelb); display: block; }
+  .lgelb .items { color: var(--ink); margin-left: 10px; text-align: left; }
+
+  .lgruen  { top: 10%; right: 6%; animation-delay: 0.65s; text-align: left; }
+  .lgruen .ltag, .lgruen .lname { color: var(--gruen); display: block; }
+  .lgruen .items { color: var(--ink); margin-left: 10px; text-align: left; }
+
+  .lorange { bottom: 28%; right: -8%; animation-delay: 0.8s; text-align: left; }
+  .lorange .ltag, .lorange .lname { color: var(--orange); display: block; }
+  .lorange .items { color: var(--ink); margin-left: 10px; text-align: left; }
+
+  .lrot    { bottom: 15%; left: -4%; animation-delay: 0.95s; text-align: left; }
+  .lrot .ltag, .lrot .lname { color: var(--rot); display: block; }
+  .lrot .items { color: var(--ink); margin-left: 10px; text-align: left; }
+
+  .lblau   { bottom: 5%; right: 18%; animation-delay: 1.1s; text-align: left; }
+  .lblau .ltag, .lblau .lname { color: var(--blau); display: block; }
+  .lblau .items { color: var(--ink); margin-left: 10px; text-align: left; }
+
+  /* ── INTRO TEXT ── */
+  .intro {
+    position: relative;
+    margin: 12px auto 0;
     text-align: center;
     font-family: var(--mono);
-    font-size: 0.88rem;
-    color: var(--ink);
+    font-size: 0.78rem;
+    line-height: 1.6;
+    opacity: 0;
+    animation: fadeIn 0.6s 1.3s forwards;
+    white-space: normal;
+    pointer-events: none;
   }
-  .page-content a {
-    color: var(--ink);
-    text-decoration: underline;
-    opacity: 0.9;
+  .intro .tag { display: block; opacity: 0.4; font-size: 0.65rem; text-align: left; margin-left: -10px; }
+  .intro-content { text-align: center; margin: 6px 12px; }
+  .intro em { display: inline; }
+  .intro .tag { opacity: 0.4; display: block; font-size: 0.65rem; }
+  .intro strong { font-style: italic; }
+  .intro em {
+    font-style: normal;
+    font-weight: 700;
+  }
+
+  /* ── POPUP PANEL ── */
+  .popup {
+    position: fixed;
+    z-index: 200;
+    background: var(--bg);
+    border: 1.5px solid var(--ink);
+    padding: 28px 30px 24px;
+    font-family: var(--mono);
+    font-size: 0.8rem;
+    line-height: 1.8;
+    max-width: 320px;
+    min-width: 240px;
+    box-shadow: 6px 6px 0 var(--ink);
+    transform: scale(0.92) translateY(8px);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.22s, transform 0.22s;
+    transition-timing-function: cubic-bezier(.34,1.3,.64,1);
+  }
+  .popup.visible {
+    opacity: 1;
+    transform: scale(1) translateY(0);
     pointer-events: all;
   }
+
+  .popup-close {
+    position: absolute;
+    top: 10px; right: 14px;
+    background: none; border: none;
+    font-family: var(--mono);
+    font-size: 1rem;
+    cursor: pointer;
+    color: var(--ink);
+    opacity: 0.5;
+    line-height: 1;
+    transition: opacity 0.15s;
+  }
+  .popup-close:hover { opacity: 1; }
+
+  .popup-tag {
+    font-size: 0.65rem;
+    opacity: 0.5;
+    margin-bottom: 4px;
+  }
+  .popup-title {
+    font-family: var(--serif);
+    font-size: 1.3rem;
+    line-height: 1.25;
+    margin-bottom: 12px;
+  }
+  .popup-body {
+    font-size: 0.75rem;
+    line-height: 1.75;
+    opacity: 0.8;
+    margin-bottom: 14px;
+  }
+  .popup-links { display: flex; flex-direction: column; gap: 4px; }
+  .popup-links a {
+    font-size: 0.72rem;
+    text-decoration: none;
+    color: var(--ink);
+    opacity: 0.6;
+    transition: opacity 0.15s;
+    display: flex; align-items: center; gap: 6px;
+  }
+  .popup-links a::before { content: '→'; }
+  .popup-links a:hover { opacity: 1; }
+
+  .popup-accent {
+    width: 100%;
+    height: 3px;
+    margin-bottom: 16px;
+    border-radius: 2px;
+  }
+
+  /* backdrop (subtle) */
+  .backdrop {
+    position: fixed;
+    inset: 0;
+    z-index: 150;
+    display: none;
+  }
+  .backdrop.active { display: block; }
 
   /* Footer */
   footer {
@@ -133,8 +303,7 @@
 <!-- HEADER -->
 <header>
   <a class="logo" href="index.html">
-    <span class="title-main"><span class="title-z">Z</span><span class="title-raum">Raum</span></span>
-    <span class="title-vision">VISION</span>
+    <span class="cursive">Z</span><span class="tag">&lt;</span><span class="v"><span class="col-gruen">V</span><span class="col-gelb">I</span><span class="col-rot">S</span><span class="col-blau">I</span><span class="col-orange">O</span><span class="col-gruen">N</span></span><span class="tag">&gt;</span><span class="cursive">RAUM</span><span class="tag">&lt;/VISION&gt;</span>
   </a>
   <nav>
     <a href="index.html"><span class="tag">&lt;menu&gt;</span></a>
@@ -145,8 +314,164 @@
   </nav>
 </header>
 
-<main class="page-content">
-  <p>baubaubaustelle</p>
+<!-- BACKDROP -->
+<div class="backdrop" id="backdrop" onclick="closePopup()"></div>
+
+<!-- POPUP -->
+<div class="popup" id="popup" role="dialog" aria-modal="true">
+  <button class="popup-close" onclick="closePopup()" aria-label="Schließen">×</button>
+  <div class="popup-accent" id="popup-accent"></div>
+  <div class="popup-tag" id="popup-tag"></div>
+  <div class="popup-title" id="popup-title"></div>
+  <div class="popup-body" id="popup-body"></div>
+  <div class="popup-links" id="popup-links"></div>
+</div>
+
+<!-- MAIN STAGE -->
+<main class="stage">
+  <div class="diagram-wrap">
+
+    <!-- LABELS -->
+    <div class="label-group lgelb" onclick="openPopup('gelb')" style="cursor:pointer">
+      <span class="ltag">&lt;gelb&gt;</span>
+      <div class="items">mitmachen<br>nachbarschaft</div>
+      <span class="ltag">&lt;/gelb&gt;</span>
+    </div>
+
+    <div class="label-group lgruen" onclick="openPopup('gruen')" style="cursor:pointer">
+      <span class="ltag">&lt;grün&gt;</span>
+      <div class="items" style="text-align:left">brotbüchsen<br>projekt</div>
+      <span class="ltag" style="float:left">&lt;/grün&gt;</span>
+    </div>
+
+    <div class="label-group lorange" onclick="openPopup('orange')" style="cursor:pointer">
+      <span class="ltag">&lt;orange&gt;</span>
+      <div class="items" style="text-align:left">ein spruch<br>philosophischer<br>raum</div>
+      <span class="ltag" style="float:left">&lt;/orange&gt;</span>
+    </div>
+
+    <div class="label-group lrot" onclick="openPopup('rot')" style="cursor:pointer">
+      <span class="ltag">&lt;rot&gt;</span>
+      <div class="items">veranstaltungen<br>lesebühne<br>kultur</div>
+      <span class="ltag">&lt;/rot&gt;</span>
+    </div>
+
+    <div class="label-group lblau" onclick="openPopup('blau')" style="cursor:pointer">
+      <span class="ltag">&lt;blau&gt;</span>
+      <div class="items">the channel<br>positive news<br>medienideen</div>
+      <span class="ltag">&lt;/blau&gt;</span>
+    </div>
+
+    <!-- SVG DIAGRAM -->
+    <svg class="diagram" viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg">
+
+      <!-- GELB: top-left tentacle -->
+      <path class="tentacle t-gelb" id="path-gelb"
+        d="M 185,160
+           C 178,152 165,148 152,150
+           C 139,152 128,158 118,154
+           C 108,150  96,140  84,136"/>
+      <path class="hit"
+        d="M 185,160 C 178,152 165,148 152,150 C 139,152 128,158 118,154 C 108,150 96,140 84,136"
+        onclick="openPopup('gelb')"/>
+
+      <!-- GRÜN: top-center-right tentacle -->
+      <path class="tentacle t-gruen" id="path-gruen"
+        d="M 223,154
+           C 227,140 224,126 228,112
+           C 232,98 238,86 234,72
+           C 230,58 226,48 230,36"/>
+      <path class="hit"
+        d="M 223,154 C 227,140 224,126 228,112 C 232,98 238,86 234,72 C 230,58 226,48 230,36"
+        onclick="openPopup('gruen')"/>
+
+      <!-- ORANGE: right tentacle -->
+      <path class="tentacle t-orange" id="path-orange"
+        d="M 246,196
+           C 260,192 272,198 286,194
+           C 300,190 312,182 326,186
+           C 340,190 350,198 362,196"/>
+      <path class="hit"
+        d="M 246,196 C 260,192 272,198 286,194 C 300,190 312,182 326,186 C 340,190 350,198 362,196"
+        onclick="openPopup('orange')"/>
+
+      <!-- ROT: bottom-left tentacle -->
+      <path class="tentacle t-rot" id="path-rot"
+        d="M 172,238
+           C 164,250 154,258 144,270
+           C 134,282 126,292 116,300
+           C 106,308  94,312  86,322"/>
+      <path class="hit"
+        d="M 172,238 C 164,250 154,258 144,270 C 134,282 126,292 116,300 C 106,308 94,312 86,322"
+        onclick="openPopup('rot')"/>
+
+      <!-- BLAU: bottom-center tentacle -->
+       <path class="tentacle t-blau" id="path-blau"
+        d="M 222,242
+           C 228,256 222,268 228,282
+           C 234,296 244,304 242,318
+           C 240,332 234,340 238,352"/>
+      <path class="hit"
+        d="M 222,242 C 228,256 222,268 228,282 C 234,296 244,304 242,318 C 240,332 234,340 238,352"
+        onclick="openPopup('blau')"/>
+
+      <!-- Dots above orb -->
+      <g class="dots">
+        <circle cx="200" cy="125" r="8.5" fill="#111"/>
+        <circle cx="230" cy="110" r="9" fill="#111"/>
+      </g>
+
+      <!-- Center orb -->
+      <g class="orb-group">
+        <!-- outer ring: centered and thinner -->
+        <path d="
+          M 200,156
+          C 220,154 238,166 244,180
+          C 250,196 248,214 238,228
+          C 228,242 212,250 200,250
+          C 188,250 172,242 162,228
+          C 152,214 150,196 156,180
+          C 162,166 180,154 200,156 Z"
+          fill="#111"/>
+        <!-- white gap: larger gap for more contrast -->
+        <path d="
+          M 200,172
+          C 212,171 224,179 228,190
+          C 232,201 231,214 224,223
+          C 218,232 207,238 200,238
+          C 193,238 182,232 176,223
+          C 169,214 168,201 172,190
+          C 176,179 188,171 200,172 Z"
+          fill="var(--bg)"/>
+        <!-- inner pupil: smaller and centered -->
+        <path d="
+          M 200,196
+          C 204,194 208,196 209,200
+          C 210,204 208,208 204,210
+          C 200,212 196,210 192,208
+          C 190,204 190,200 192,196
+          C 194,194 197,193 200,196 Z"
+          fill="#111"/>
+      </g>
+
+    </svg>
+
+  </div>
+
+  <!-- INTRO -->
+  <div class="intro">
+    <span class="tag">&lt;p class="intro"&gt;</span>
+    <div class="intro-content">
+      klick auf deine <em>
+        <span class="col-gruen">l</span><span class="col-gelb">i</span><span class="col-rot">e</span><span class="col-blau">b</span><span class="col-orange">l</span>
+        <span class="col-gruen">i</span><span class="col-gelb">n</span><span class="col-rot">g</span><span class="col-blau">s</span><span class="col-orange">f</span>
+        <span class="col-gruen">a</span><span class="col-gelb">r</span><span class="col-rot">b</span><span class="col-blau">e</span>
+      </em><br>
+      und tritt ein in den zwischenraum.
+    </div>
+    <span class="tag">&lt;/p&gt;</span>
+  </div>
+
 </main>
 
 <!-- FOOTER -->
@@ -156,5 +481,129 @@
   <span class="tag">&lt;/footer&gt;</span>
 </footer>
 
+<script>
+const data = {
+  gelb: {
+    color: '#e6a800',
+    tag: '<gelb>',
+    title: 'Mitmachen & Nachbarschaft',
+    body: 'Hier entsteht Raum für Begegnung. Werde Teil des Zwischenraums — als Nachbar:in, Mitgestalter:in oder einfach neugieriger Mensch.',
+    links: [
+      { label: 'Jetzt mitmachen', href: '#' },
+      { label: 'Nachbarschaftsprojekte', href: '#' },
+      { label: 'Nächste Treffen', href: '#' },
+    ],
+    pos: { left: '16%', top: '28%' }
+  },
+  gruen: {
+    color: '#3a9a3a',
+    tag: '<grün>',
+    title: 'Brotbüchsen Projekt',
+    body: 'Teilen was da ist. Das Brotbüchsen-Projekt verbindet Menschen über Essen — nachbarschaftlich, unkompliziert und immer frisch.',
+    links: [
+      { label: 'Zum Projekt', href: '#' },
+      { label: 'Mitmachen', href: '#' },
+    ],
+    pos: { left: '12%', top: '14%' }
+  },
+  orange: {
+    color: '#e07020',
+    tag: '<orange>',
+    title: 'Philosophischer Raum',
+    body: 'Ein Spruch, ein Gedanke, eine Stille. Der philosophische Raum lädt ein zum Innehalten — mit Worten, die bleiben.',
+    links: [
+      { label: 'Spruch der Woche', href: '#' },
+      { label: 'Philosophischer Abend', href: '#' },
+      { label: 'Archiv', href: '#' },
+    ],
+    pos: { right: '6%', bottom: '32%' }
+  },
+  rot: {
+    color: '#d63025',
+    tag: '<rot>',
+    title: 'Veranstaltungen & Kultur',
+    body: 'Lesebühne, Konzerte, offene Bühne. Hier passiert Kultur — nah, lebendig und ohne Berührungsangst.',
+    links: [
+      { label: 'Veranstaltungskalender', href: '#' },
+      { label: 'Lesebühne', href: '#' },
+      { label: 'Eigenes Event einreichen', href: '#' },
+    ],
+    pos: { left: '6%', bottom: '24%' }
+  },
+  blau: {
+    color: '#3a6abf',
+    tag: '<blau>',
+    title: 'The Channel — Positive News',
+    body: 'Medienideen für eine Welt, die sich lohnt. The Channel sammelt und verbreitet Geschichten, die aufbauen statt niedermachen.',
+    links: [
+      { label: 'Aktuelle Beiträge', href: '#' },
+      { label: 'Medienideen einreichen', href: '#' },
+      { label: 'Newsletter', href: '#' },
+    ],
+    pos: { left: '44%', bottom: '10%' }
+  }
+};
+
+let current = null;
+
+function openPopup(key) {
+  const d = data[key];
+  const popup = document.getElementById('popup');
+
+  // Set content
+  document.getElementById('popup-accent').style.background = d.color;
+  document.getElementById('popup-tag').textContent = d.tag;
+  document.getElementById('popup-title').textContent = d.title;
+  document.getElementById('popup-body').textContent = d.body;
+
+  const linksEl = document.getElementById('popup-links');
+  linksEl.innerHTML = d.links.map(l =>
+    `<a href="${l.href}">${l.label}</a>`
+  ).join('');
+
+  // Position
+  popup.style.top = d.pos.top || 'auto';
+  popup.style.bottom = d.pos.bottom || 'auto';
+  popup.style.left = d.pos.left || 'auto';
+  popup.style.right = d.pos.right || 'auto';
+
+  // Clamp to viewport
+  popup.style.transform = '';
+  requestAnimationFrame(() => {
+    const r = popup.getBoundingClientRect();
+    let dx = 0, dy = 0;
+    if (r.right > window.innerWidth - 16)  dx = window.innerWidth - 16 - r.right;
+    if (r.left < 16)                        dx = 16 - r.left;
+    if (r.bottom > window.innerHeight - 16) dy = window.innerHeight - 16 - r.bottom;
+    if (r.top < 80)                         dy = 80 - r.top;
+    if (dx || dy) popup.style.transform = `translate(${dx}px,${dy}px)`;
+  });
+
+  popup.classList.add('visible');
+  document.getElementById('backdrop').classList.add('active');
+  current = key;
+
+  // Pulse the tentacle
+  const path = document.getElementById('path-' + key);
+  if (path) {
+    path.style.filter = `drop-shadow(0 0 14px ${d.color})`;
+    path.style.strokeWidth = '28';
+    setTimeout(() => {
+      path.style.filter = '';
+      path.style.strokeWidth = '';
+    }, 900);
+  }
+}
+
+function closePopup() {
+  document.getElementById('popup').classList.remove('visible');
+  document.getElementById('backdrop').classList.remove('active');
+  current = null;
+}
+
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape') closePopup();
+});
+</script>
 </body>
 </html>
