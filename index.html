@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Z&lt;VISION&gt;RAUM</title>
-<link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Instrument+Serif:ital@0;1&family=Gravitas+One&family=Fredoka+One&display=swap" rel="stylesheet">
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -41,6 +41,10 @@
   }
 
   .logo {
+    display: inline-flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.2rem;
     font-family: var(--mono);
     font-size: 1.4rem;
     font-weight: 700;
@@ -50,7 +54,25 @@
     pointer-events: all;
     user-select: none;
   }
-  .logo .cursive { font-family: 'Comic Sans MS', 'Comic Sans', 'Segoe Print', cursive; font-weight: 700; }
+  .logo .title-main {
+    font-family: 'Gravitas One', cursive;
+    font-size: 2rem;
+    line-height: 0.95;
+    letter-spacing: 0.02em;
+  }
+  .logo .title-vision {
+    font-family: 'Fredoka One', cursive;
+    font-size: 1.05rem;
+    line-height: 1;
+    letter-spacing: 0.08em;
+    opacity: 0.95;
+  }
+  .logo .title-z,
+  .logo .title-raum {
+    display: inline-block;
+  }
+  .logo .title-z { margin-right: 0.18em; }
+  .logo .title-raum { font-weight: 400; }
   .logo .v { display: inline-block; }
   .col-gruen  { color: var(--gruen); }
   .col-gelb   { color: var(--gelb); }
@@ -257,25 +279,10 @@
     margin-bottom: 14px;
   }
   .popup-links { display: flex; flex-direction: column; gap: 4px; }
-  .popup-links a {
-    font-size: 0.72rem;
-    text-decoration: none;
-    color: var(--ink);
-    opacity: 0.6;
-    transition: opacity 0.15s;
-    display: flex; align-items: center; gap: 6px;
-  }
-  .popup-links a::before { content: '→'; }
-  .popup-links a:hover { opacity: 1; }
+  .popup-links a { }
+  .popup-links a:hover { opacity: 0.7; }
 
-  .popup-accent {
-    width: 100%;
-    height: 3px;
-    margin-bottom: 16px;
-    border-radius: 2px;
-  }
-
-  /* backdrop (subtle) */
+  /* ── BACKDROP ── */
   .backdrop {
     position: fixed;
     inset: 0;
@@ -303,7 +310,8 @@
 <!-- HEADER -->
 <header>
   <a class="logo" href="index.html">
-    <span class="cursive">Z</span><span class="tag">&lt;</span><span class="v"><span class="col-gruen">V</span><span class="col-gelb">I</span><span class="col-rot">S</span><span class="col-blau">I</span><span class="col-orange">O</span><span class="col-gruen">N</span></span><span class="tag">&gt;</span><span class="cursive">RAUM</span><span class="tag">&lt;/VISION&gt;</span>
+    <span class="title-main"><span class="title-z">Z</span><span class="title-raum">Raum</span></span>
+    <span class="title-vision">VISION</span>
   </a>
   <nav>
     <a href="index.html"><span class="tag">&lt;menu&gt;</span></a>
@@ -486,22 +494,21 @@ const data = {
   gelb: {
     color: '#e6a800',
     tag: '<gelb>',
-    title: 'Mitmachen & Nachbarschaft',
-    body: 'Hier entsteht Raum für Begegnung. Werde Teil des Zwischenraums — als Nachbar:in, Mitgestalter:in oder einfach neugieriger Mensch.',
+    title: 'die Diele - Nachbarschaft',
+    body: 'Das Wort Nachbarschaft bedeutet ursprünglich „die Gemeinschaft der Nahwohnenden“ <br> Hier entsteht Raum für Begegnung. <br> Ob als Nachbar:in, Mitgestalter:in oder einfach neugieriger Mensch - du bist willkommen. 
+',
     links: [
-      { label: 'Jetzt mitmachen', href: '#' },
-      { label: 'Nachbarschaftsprojekte', href: '#' },
-      { label: 'Nächste Treffen', href: '#' },
+      { label: 'MITMACHEN', href: '#' },
     ],
     pos: { left: '16%', top: '28%' }
   },
   gruen: {
     color: '#3a9a3a',
     tag: '<grün>',
-    title: 'Brotbüchsen Projekt',
-    body: 'Teilen was da ist. Das Brotbüchsen-Projekt verbindet Menschen über Essen — nachbarschaftlich, unkompliziert und immer frisch.',
+    title: 'lebendige Bibliothek - Geschichten & Medien',
+    body: 'Die Bibliothek ist ein Ort für Geschichten, Wissen und Perspektiven. <br> Hier wird gesammelt, geteilt und weitergegeben. <br> Manchmal laufen Bücher herum. ',
     links: [
-      { label: 'Zum Projekt', href: '#' },
+      { label: 'Archiv', href: '#' },
       { label: 'Mitmachen', href: '#' },
     ],
     pos: { left: '12%', top: '14%' }
@@ -509,36 +516,37 @@ const data = {
   orange: {
     color: '#e07020',
     tag: '<orange>',
-    title: 'Philosophischer Raum',
-    body: 'Ein Spruch, ein Gedanke, eine Stille. Der philosophische Raum lädt ein zum Innehalten — mit Worten, die bleiben.',
+    title: 'Küche - gemeinsames Essen',
+    body: 'Die Küche ist seit jeher ein Ort der Versorgung und Begegnung.  <br> Hier wird geteilt, gekocht und gegessen.  <br> Niemand sollte hungrig bleiben.',
+
     links: [
-      { label: 'Spruch der Woche', href: '#' },
-      { label: 'Philosophischer Abend', href: '#' },
-      { label: 'Archiv', href: '#' },
+      { label: 'Brotbüchse', href: '#' },
+      { label: 'kulinarisches', href: '#' },
+      { label: 'foodsharing', href: '#' },
     ],
     pos: { right: '6%', bottom: '32%' }
   },
   rot: {
     color: '#d63025',
     tag: '<rot>',
-    title: 'Veranstaltungen & Kultur',
-    body: 'Lesebühne, Konzerte, offene Bühne. Hier passiert Kultur — nah, lebendig und ohne Berührungsangst.',
+    title: 'Dachboden - Kunst & Kultur',
+    body: 'Der Dachboden ist ein Ort für Dinge, die nicht verloren gehen sollen. <br> Hier ist Platz für Kunst, Kultur und Erinnerungen. <br> Manchmal finden wir dort etwas wieder, das wir längst vergessen glaubten.',
     links: [
       { label: 'Veranstaltungskalender', href: '#' },
       { label: 'Lesebühne', href: '#' },
-      { label: 'Eigenes Event einreichen', href: '#' },
+      { label: 'eigenes Event einreichen', href: '#' },
     ],
     pos: { left: '6%', bottom: '24%' }
   },
   blau: {
     color: '#3a6abf',
     tag: '<blau>',
-    title: 'The Channel — Positive News',
-    body: 'Medienideen für eine Welt, die sich lohnt. The Channel sammelt und verbreitet Geschichten, die aufbauen statt niedermachen.',
+    title: 'Fragenstube - Philosophie',
+    body: 'Die Fragenstube erinnert daran, dass jede Antwort einmal mit einer Frage begonnen hat. <br> Hier ist Platz für Gespräche und unterschiedliche Perspektiven. <br> Niemand kann alles wissen.',
     links: [
-      { label: 'Aktuelle Beiträge', href: '#' },
-      { label: 'Medienideen einreichen', href: '#' },
-      { label: 'Newsletter', href: '#' },
+      { label: 'Spruch der Woche', href: '#' },
+      { label: 'philosophischer Abend', href: '#' },
+      { label: 'Archiv', href: '#' },
     ],
     pos: { left: '44%', bottom: '10%' }
   }
