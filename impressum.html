@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Z&lt;VISION&gt;RAUM</title>
-<link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Instrument+Serif:ital@0;1&family=Gravitas+One&family=Fredoka+One&display=swap" rel="stylesheet">
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -41,23 +41,41 @@
   }
 
   .logo {
-    font-family: var(--mono);
-    font-size: 1.4rem;
-    font-weight: 700;
-    letter-spacing: -0.02em;
+    display: inline-flex;
+    align-items: flex-end;
+    gap: 0.18rem;
     text-decoration: none;
     color: var(--ink);
     pointer-events: all;
     user-select: none;
   }
-  .logo .cursive { font-family: 'Comic Sans MS', 'Comic Sans', 'Segoe Print', cursive; font-weight: 700; }
-  .logo .v { display: inline-block; }
+  .logo .title-main {
+    font-family: 'Gravitas One', cursive;
+    font-size: 1.25rem;
+    line-height: 1;
+    color: #111;
+  }
+  .logo .title-vision {
+    font-family: 'Fredoka One', cursive;
+    font-size: 1.05rem;
+    line-height: 1;
+    letter-spacing: 0.08em;
+    color: #111;
+  }
+  .logo .tag {
+    font-family: var(--mono);
+    font-size: 1.05rem;
+    line-height: 1;
+    color: #6f6f6f;
+    opacity: 1;
+  }
+  .logo .tag.close { font-size: 0.65rem; opacity: 0.35; }
+  .logo .v { display: inline-flex; gap: 0.05em; }
   .col-gruen  { color: var(--gruen); }
   .col-gelb   { color: var(--gelb); }
   .col-rot    { color: var(--rot); }
   .col-blau   { color: var(--blau); }
   .col-orange { color: var(--orange); }
-  .logo .tag { font-weight: 400; opacity: 0.35; font-size: 0.88rem; }
 
   nav {
     text-align: left;
@@ -66,15 +84,15 @@
     line-height: 1.9;
     width: max-content;
   }
-    nav .tag { opacity: 0.4; display: block; }
-    nav a { 
-      display: block; 
-      padding-left: 10px; 
-      color: var(--ink); 
-      text-decoration: none; 
-      opacity: 0.7; 
-      transition: opacity 0.2s; 
-    }
+  nav .tag { opacity: 0.4; display: block; }
+  nav a {
+    display: block;
+    color: var(--ink);
+    text-decoration: none;
+    opacity: 0.7;
+    padding-left: 10px;
+    transition: opacity 0.2s;
+  }
   nav a:hover { opacity: 1; }
 
   .page-content {
@@ -111,7 +129,12 @@
 <!-- HEADER -->
 <header>
   <a class="logo" href="index.html">
-    <span class="cursive">Z</span><span class="tag">&lt;</span><span class="v"><span class="col-gruen">V</span><span class="col-gelb">I</span><span class="col-rot">S</span><span class="col-blau">I</span><span class="col-orange">O</span><span class="col-gruen">N</span></span><span class="tag">&gt;</span><span class="cursive">RAUM</span><span class="tag">&lt;/VISION&gt;</span>
+    <span class="title-main"><span class="title-z">Z</span></span>
+    <span class="tag">&lt;</span>
+    <span class="title-vision"><span class="col-gruen">V</span><span class="col-gelb">I</span><span class="col-rot">S</span><span class="col-blau">I</span><span class="col-orange">O</span><span class="col-gruen">N</span></span>
+    <span class="tag">&gt;</span>
+    <span class="title-main"><span class="title-raum">RAUM</span></span>
+    <span class="tag close">&lt;/vision&gt;</span>
   </a>
   <nav>
     <a href="index.html"><span class="tag">&lt;menu&gt;</span></a>
