@@ -175,7 +175,6 @@
   .size-option { width:32px; height:32px; border-radius:50%; display:flex; align-items:center; justify-content:center; cursor:pointer }
   .circle { border-radius:50%; background:#111; pointer-events:none }
   #circle1{width:4px;height:4px} #circle2{width:9px;height:9px} #circle3{width:16px;height:16px}
-  #eraser{width:32px;height:32px;border-radius:6px;display:flex;align-items:center;justify-content:center;cursor:pointer}
   #clear-btn{height:30px;padding:0 12px;border-radius:999px;border:1.5px solid #111;background:transparent;font-family:monospace;font-size:11px;cursor:pointer}
   #cursor-ring{position:fixed;pointer-events:none;border-radius:50%;border:1.5px solid rgba(0,0,0,0.4);transform:translate(-50%,-50%);transition:width 0.1s,height 0.1s;z-index:999;display:block}
 
@@ -238,10 +237,6 @@
 
   <div class="sep"></div>
 
-  <div id="eraser" title="Radierer">✕</div>
-
-  <div class="sep"></div>
-
   <button id="clear-btn" title="Alles löschen">CLEAR</button>
 </div>
 
@@ -294,8 +289,7 @@
       currentColor = colorMap[el.id];
       ctx.strokeStyle = currentColor;
       ctx.globalCompositeOperation = 'source-over';
-      isErasing = false; document.getElementById('eraser').classList.remove('active');
-      updateRing();
+        updateRing();
     }));
 
     const sizeMap = { thin:3, normal:8, thick:22 };
@@ -305,12 +299,6 @@
       currentSize = sizeMap[el.id]; ctx.lineWidth = currentSize; updateRing();
     }));
 
-    document.getElementById('eraser').addEventListener('click', ()=>{
-      isErasing = !isErasing; document.getElementById('eraser').classList.toggle('active', isErasing);
-      ctx.globalCompositeOperation = isErasing ? 'destination-out' : 'source-over';
-      if(!isErasing) ctx.strokeStyle = currentColor; updateRing();
-    });
-
     document.getElementById('clear-btn').addEventListener('click', ()=> ctx.clearRect(0,0,canvas.width,canvas.height));
 
     function updateRing(){ const d = currentSize + 6; ring.style.width = d+'px'; ring.style.height = d+'px'; ring.style.borderColor = isErasing ? 'rgba(0,0,0,0.3)' : currentColor + 'bb'; }
@@ -318,7 +306,7 @@
 
     document.addEventListener('mousemove', e=>{
       const target = e.target;
-      const ignore = target.closest('a, button, .option, .size-option, #eraser, #clear-btn');
+      const ignore = target.closest('a, button, .option, .size-option, #clear-btn');
       ring.style.display = ignore ? 'none' : 'block';
       ring.style.left = e.clientX+'px';
       ring.style.top = e.clientY+'px';
@@ -327,7 +315,7 @@
 
     function getPos(e){ if(e.touches){ const t = e.touches[0]; const r = canvas.getBoundingClientRect(); return { x: t.clientX - r.left, y: t.clientY - r.top }; } const rect = canvas.getBoundingClientRect(); return { x: e.clientX - rect.left, y: e.clientY - rect.top }; }
 
-    function shouldIgnoreDrawing(target){ return !!target.closest('a, button, .option, .size-option, #eraser, #clear-btn'); }
+    function shouldIgnoreDrawing(target){ return !!target.closest('a, button, .option, .size-option, #clear-btn'); }
 
     function startDraw(e){ if(shouldIgnoreDrawing(e.target)) return; isDrawing = true; const p = getPos(e); lastX = p.x; lastY = p.y; ctx.beginPath(); if(isErasing){ const prev = ctx.globalCompositeOperation; ctx.globalCompositeOperation='destination-out'; ctx.arc(lastX,lastY,ctx.lineWidth/2,0,Math.PI*2); ctx.fillStyle='rgba(0,0,0,1)'; ctx.fill(); ctx.globalCompositeOperation = prev; } else { ctx.arc(lastX,lastY,ctx.lineWidth/2,0,Math.PI*2); ctx.fillStyle = currentColor; ctx.fill(); } }
 
