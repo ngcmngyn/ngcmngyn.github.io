@@ -114,38 +114,48 @@
     padding-top: 180px;
     text-align: center;
     font-family: var(--mono);
-    font-size: 0.78rem;
-    color: #111;
+    font-size: 0.88rem;
+    color: var(--ink);
   }
   .page-title {
     font-size: 1.8rem;
     font-weight: 700;
     color: #111;
     opacity: 0.35;
-    margin: 0;
-    animation: fadeIn 0.6s 0.4s forwards;
+    margin-bottom: 1rem;
   }
+  .page-title .phonetic {
+    color: #999;
+  }
+  .page-content a {
+    color: var(--ink);
+    text-decoration: underline;
+    opacity: 0.9;
+    pointer-events: all;
+  }
+
+    /* ── INTRO TEXT ── */
   .intro {
+    position: relative;
     display: inline-block;
     margin: 12px auto 0;
     text-align: center;
+    font-family: var(--mono);
+    font-size: 0.78rem;
+    line-height: 1.6;
     opacity: 0;
-    animation: fadeIn 0.6s 0.4s forwards;
+    animation: fadeIn 0.6s 1.3s forwards;
+    white-space: normal;
     pointer-events: none;
   }
-  .powered {
-    display: inline-block;
-    text-align: left;
-    margin-top: 1rem;
-  }
-  .powered .tag {
-    display: block;
-    opacity: 0.35;
-    font-size: 0.65rem;
-  }
-  .powered .intro-content {
-    text-align: left;
-    margin: 6px 0;
+  .intro .tag { display: block; opacity: 0.4; font-size: 0.65rem; text-align: left; margin-left: 0; }
+  .intro-content { text-align: center; margin: 6px 12px; }
+  .intro em { display: inline; }
+  .intro .tag { opacity: 0.4; display: block; font-size: 0.65rem; }
+  .intro strong { font-style: italic; }
+  .intro em {
+    font-style: normal;
+    font-weight: 700;
   }
 
   @keyframes fadeIn {
@@ -189,18 +199,21 @@
 </header>
 
 <main class="page-content">
+  <p>für dich, für mich, für uns alle</p><br>
+
+  <!-- INTRO -->
   <div class="intro">
-    <h1 class="page-title">z[ˈvɪʒən]raum</h1>
+    <h1 class="page-title">z[ˈvɪʒən]raum</h1><br>
   </div>
 
-  <div class="powered">
-    <span class="tag">&lt;powered by&gt;</span>
+  <p>ein Ort für Austausch, Experimente und Nachbarschaft<br>
+    komm vorbei, hör zu und gestalte mit uns den Zwischenraum</p><br><br><br>
+
+  <span class="tag">&lt;powered by&gt;</span>
     <div class="intro-content">
-      Kulturhaus Sonnenberg e.V.<br>
-      <a href="https://www.ifp-chemnitz.de/" target="_blank" rel="noopener noreferrer">Interdisziplinäre Frühförderpraxis Rabbeau</a>
+      Kulturhaus Sonnenberg e.V.<br><a href="https://www.ifp-chemnitz.de/" target="_blank" rel="noopener noreferrer">Interdisziplinäre Frühförderpraxis Rabbeau</a>
     </div>
-    <span class="tag">&lt;/powered&gt;</span>
-  </div>
+  <span class="tag">&lt;/powered&gt;</span>
 </main>
 
 <!-- FOOTER -->
