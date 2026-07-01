@@ -124,6 +124,58 @@
     pointer-events: all;
   }
 
+  /* Canvas drawing integration */
+  #container {
+    position: fixed;
+    inset: 0;
+    z-index: 50;
+    pointer-events: none;
+  }
+
+  .paint-canvas {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    touch-action: none;
+    background: transparent;
+    display: block;
+  }
+
+  .paint-canvas.active { pointer-events: auto; z-index: 150; }
+
+  /* toolbar */
+  #options {
+    position: fixed;
+    bottom: 32px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    background: #fff;
+    border: 1.5px solid #111;
+    border-radius: 999px;
+    padding: 8px 14px;
+    box-shadow: 4px 4px 0 #111;
+    z-index: 300;
+    user-select: none;
+    pointer-events: all;
+  }
+
+  .sep { width: 1px; height: 24px; background: #ddd; margin: 0 4px; flex-shrink: 0; }
+  .option { width: 26px; height: 26px; border-radius: 50%; cursor: pointer; border: 2px solid transparent; transition: transform 0.15s, border-color 0.15s; display:flex; align-items:center; justify-content:center }
+  .option:hover { transform: scale(1.18); }
+  .option.active { border-color: #111; transform: scale(1.18); }
+  #yellow { background: #e6a800 } #orange { background: #e07020 } #red { background: #d63025 } #blue { background: #3a6abf } #green { background: #3a9a3a } #black { background: #111 } #white { background: #fff; border:2px solid #ccc }
+  .size-option { width:32px; height:32px; border-radius:50%; display:flex; align-items:center; justify-content:center; cursor:pointer }
+  .circle { border-radius:50%; background:#111; pointer-events:none }
+  #circle1{width:4px;height:4px} #circle2{width:9px;height:9px} #circle3{width:16px;height:16px}
+  #eraser{width:32px;height:32px;border-radius:6px;display:flex;align-items:center;justify-content:center;cursor:pointer}
+  #clear-btn{height:30px;padding:0 12px;border-radius:999px;border:1.5px solid #111;background:transparent;font-family:monospace;font-size:11px;cursor:pointer}
+  #draw-toggle{height:30px;padding:0 10px;border-radius:999px;border:1.5px solid #111;background:transparent;font-family:monospace;font-size:11px;cursor:pointer}
+  #cursor-ring{position:fixed;pointer-events:none;border-radius:50%;border:1.5px solid rgba(0,0,0,0.4);transform:translate(-50%,-50%);transition:width 0.1s,height 0.1s;z-index:999;display:none}
+
   /* Footer */
   footer {
     position: fixed;
@@ -159,6 +211,38 @@
   </nav>
 </header>
 
+<!-- Canvas container + toolbar (integrated) -->
+<div id="container">
+  <canvas class="paint-canvas js-paint"></canvas>
+</div>
+
+<div id="cursor-ring"></div>
+
+<div id="options">
+  <div id="yellow" class="option active" title="Gelb"></div>
+  <div id="orange" class="option" title="Orange"></div>
+  <div id="red" class="option" title="Rot"></div>
+  <div id="blue" class="option" title="Blau"></div>
+  <div id="green" class="option" title="Grün"></div>
+  <div id="black" class="option" title="Schwarz"></div>
+  <div id="white" class="option" title="Weiß / Übermalen"></div>
+
+  <div class="sep"></div>
+
+  <div id="thin" class="size-option" title="Dünn"><div id="circle1" class="circle"></div></div>
+  <div id="normal" class="size-option active" title="Normal"><div id="circle2" class="circle"></div></div>
+  <div id="thick" class="size-option" title="Dick"><div id="circle3" class="circle"></div></div>
+
+  <div class="sep"></div>
+
+  <div id="eraser" title="Radierer">✕</div>
+
+  <div class="sep"></div>
+
+  <button id="clear-btn" title="Alles löschen">CLEAR</button>
+  <button id="draw-toggle" title="Zeichnen aktivieren">DRAW</button>
+</div>
+
 <main class="page-content">
   <p>baubaubaustelle</p>
 </main>
@@ -172,3 +256,4 @@
 
 </body>
 </html>
+*** End Patch
