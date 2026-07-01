@@ -134,6 +134,30 @@
     pointer-events: all;
   }
 
+    /* ── INTRO TEXT ── */
+  .intro {
+    position: relative;
+    margin: 12px auto 0;
+    text-align: center;
+    font-family: var(--mono);
+    font-size: 0.78rem;
+    line-height: 1.6;
+    opacity: 0;
+    animation: fadeIn 0.6s 1.3s forwards;
+    white-space: normal;
+    pointer-events: none;
+  }
+  .intro .tag { display: block; opacity: 0.4; font-size: 0.65rem; text-align: left; margin-left: -10px; }
+  .intro-content { text-align: center; margin: 6px 12px; }
+  .intro em { display: inline; }
+  .intro .tag { opacity: 0.4; display: block; font-size: 0.65rem; }
+  .intro strong { font-style: italic; }
+  .intro em {
+    font-style: normal;
+    font-weight: 700;
+  }
+
+
   /* Footer */
   footer {
     position: fixed;
@@ -172,14 +196,18 @@
 <main class="page-content">
   <p>für dich, für mich, für uns alle</p><br>
   <h1 class="page-title">z[ˈvɪʒən]raum</h1><br>
-  <p>ein Ort für Austausch, Experimente und Nachbarschaft<br>komm vorbei, hör zu und gestalte mit uns den Zwischenraum<br><br>
-    
-      <span class="tag">&lt;powered by&gt;</span><br>
-    Kulturhaus Sonnenberg e.V.<br>Interdisziplinäre Frühförderpraxis Rabbeau<br>
-      <span class="tag">&lt;/powered&gt;</span>
-    
+  <p>ein Ort für Austausch, Experimente und Nachbarschaft<br>
+    komm vorbei, hör zu und gestalte mit uns den Zwischenraum</p><br><br><br>
+
+  <!-- INTRO -->
+  <div class="intro">
+    <span class="tag">&lt;powered by&gt;</span>
+    <div class="intro-content">
+      Kulturhaus Sonnenberg e.V.<br><a href="https://www.ifp-chemnitz.de/" target="_blank" rel="noopener noreferrer">Interdisziplinäre Frühförderpraxis Rabbeau</a><br>
+    </div>
+    <span class="tag">&lt;/powered&gt;</span>
+  </div>    
   
-  </p>
 </main>
 
 <!-- FOOTER -->
@@ -188,6 +216,10 @@
     ZVISIONRAUM © 2026 – ein ort zwischen laut und leise<br>
   <span class="tag">&lt;/footer&gt;</span>
 </footer>
+
+
+
+
 
 </body>
 </html>
