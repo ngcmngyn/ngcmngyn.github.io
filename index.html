@@ -298,7 +298,8 @@
     transition: opacity 0.15s;
     display: flex; align-items: center; gap: 6px;
   }
-  .popup-links a::before { content: '→'; }
+  .popup-links a::after { content: '→'; }
+  .popup-links a.back-link::after { content: '←'; margin-left: 6px; }
   .popup-links a:hover { opacity: 1; }
 
   .popup-accent {
@@ -554,7 +555,7 @@ manchmal laufen Bücher herum.`,
 hier wird geteilt, gekocht und gegessen.
 niemand sollte hungrig bleiben.`,
     links: [
-      { label: 'projekt: brotbüchse', href: '#' },
+      { label: 'projekt: brotbüchse', href: '#', action: 'orange-brotbuechse' },
       { label: 'kulinarisches', href: '#' },
       { label: 'foodsharing', href: '#' },
     ],
@@ -602,7 +603,7 @@ function openPopup(key) {
 
   const linksEl = document.getElementById('popup-links');
   linksEl.innerHTML = d.links.map(l =>
-    `<a href="${l.href}">${l.label}</a>`
+    `<a href="${l.href}" data-action="${l.action||''}">${l.label}</a>`
   ).join('');
 
   // Position
@@ -643,6 +644,46 @@ function closePopup() {
   document.getElementById('popup').classList.remove('visible');
   document.getElementById('backdrop').classList.remove('active');
   current = null;
+}
+
+document.getElementById('popup-links').addEventListener('click', event => {
+  const link = event.target.closest('a');
+  if (!link) return;
+  event.preventDefault();
+
+  if (link.dataset.action === 'orange-brotbuechse') {
+    openSubpage('orange');
+    return;
+  }
+  if (link.classList.contains('back-link')) {
+    openPopup(current);
+    return;
+  }
+});
+
+function openSubpage(key) {
+  const popup = document.getElementById('popup');
+  const d = data[key];
+  const sub = {
+    title: 'projekt: brotbüchse',
+    body: `wir möchten Kindern kostenlos eine gesunde Brotbüchse zur Verfügung stellen.
+dafür suchen wir Menschen, Unternehmen und Partner, die diese Idee unterstützen möchten.
+du hast: Lust, Zeit, Know-How, Möglichkeiten oder einfach eine gute Idee?
+melde dich bei uns.`,
+    backLabel: 'zurück'
+  };
+
+  document.getElementById('popup-accent').style.background = d.color;
+  document.getElementById('popup-tag').textContent = d.tag;
+  document.getElementById('popup-title').textContent = sub.title;
+  document.getElementById('popup-body').textContent = sub.body;
+  document.getElementById('popup-links').innerHTML = `<a href="#" class="back-link">${sub.backLabel}</a>`;
+
+  popup.style.top = d.pos.top || 'auto';
+  popup.style.bottom = d.pos.bottom || 'auto';
+  popup.style.left = d.pos.left || 'auto';
+  popup.style.right = d.pos.right || 'auto';
+  popup.classList.add('visible');
 }
 
 document.addEventListener('keydown', e => {
