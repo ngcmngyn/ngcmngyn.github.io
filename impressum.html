@@ -26,6 +26,10 @@
     color: var(--ink);
     font-family: var(--mono);
     overflow: hidden;
+    cursor: crosshair;
+  }
+  a, button, .option, .size-option {
+    cursor: auto;
   }
 
   /* ── HEADER ── */
@@ -140,9 +144,9 @@
     touch-action: none;
     background: transparent;
     display: block;
+    pointer-events: none;
+    z-index: 150;
   }
-
-  .paint-canvas.active { pointer-events: auto; z-index: 150; }
 
   /* toolbar */
   #options {
@@ -173,8 +177,7 @@
   #circle1{width:4px;height:4px} #circle2{width:9px;height:9px} #circle3{width:16px;height:16px}
   #eraser{width:32px;height:32px;border-radius:6px;display:flex;align-items:center;justify-content:center;cursor:pointer}
   #clear-btn{height:30px;padding:0 12px;border-radius:999px;border:1.5px solid #111;background:transparent;font-family:monospace;font-size:11px;cursor:pointer}
-  #draw-toggle{height:30px;padding:0 10px;border-radius:999px;border:1.5px solid #111;background:transparent;font-family:monospace;font-size:11px;cursor:pointer}
-  #cursor-ring{position:fixed;pointer-events:none;border-radius:50%;border:1.5px solid rgba(0,0,0,0.4);transform:translate(-50%,-50%);transition:width 0.1s,height 0.1s;z-index:999;display:none}
+  #cursor-ring{position:fixed;pointer-events:none;border-radius:50%;border:1.5px solid rgba(0,0,0,0.4);transform:translate(-50%,-50%);transition:width 0.1s,height 0.1s;z-index:999;display:block}
 
   /* Footer */
   footer {
@@ -240,7 +243,6 @@
   <div class="sep"></div>
 
   <button id="clear-btn" title="Alles löschen">CLEAR</button>
-  <button id="draw-toggle" title="Zeichnen aktivieren">DRAW</button>
 </div>
 
 <main class="page-content">
@@ -314,35 +316,33 @@
     function updateRing(){ const d = currentSize + 6; ring.style.width = d+'px'; ring.style.height = d+'px'; ring.style.borderColor = isErasing ? 'rgba(0,0,0,0.3)' : currentColor + 'bb'; }
     updateRing();
 
-    document.addEventListener('mousemove', e=>{ ring.style.display='block'; ring.style.left = e.clientX+'px'; ring.style.top = e.clientY+'px'; });
+    document.addEventListener('mousemove', e=>{
+      const target = e.target;
+      const ignore = target.closest('a, button, .option, .size-option, #eraser, #clear-btn');
+      ring.style.display = ignore ? 'none' : 'block';
+      ring.style.left = e.clientX+'px';
+      ring.style.top = e.clientY+'px';
+    });
     document.addEventListener('mouseleave', ()=>{ ring.style.display='none'; });
 
-    function getPos(e){ if(e.touches){ const t = e.touches[0]; const r = canvas.getBoundingClientRect(); return { x: t.clientX - r.left, y: t.clientY - r.top }; } return { x: e.offsetX, y: e.offsetY }; }
+    function getPos(e){ if(e.touches){ const t = e.touches[0]; const r = canvas.getBoundingClientRect(); return { x: t.clientX - r.left, y: t.clientY - r.top }; } const rect = canvas.getBoundingClientRect(); return { x: e.clientX - rect.left, y: e.clientY - rect.top }; }
 
-    function startDraw(e){ isDrawing = true; const p = getPos(e); lastX = p.x; lastY = p.y; ctx.beginPath(); if(isErasing){ const prev = ctx.globalCompositeOperation; ctx.globalCompositeOperation='destination-out'; ctx.arc(lastX,lastY,ctx.lineWidth/2,0,Math.PI*2); ctx.fillStyle='rgba(0,0,0,1)'; ctx.fill(); ctx.globalCompositeOperation = prev; } else { ctx.arc(lastX,lastY,ctx.lineWidth/2,0,Math.PI*2); ctx.fillStyle = currentColor; ctx.fill(); } }
+    function shouldIgnoreDrawing(target){ return !!target.closest('a, button, .option, .size-option, #eraser, #clear-btn'); }
+
+    function startDraw(e){ if(shouldIgnoreDrawing(e.target)) return; isDrawing = true; const p = getPos(e); lastX = p.x; lastY = p.y; ctx.beginPath(); if(isErasing){ const prev = ctx.globalCompositeOperation; ctx.globalCompositeOperation='destination-out'; ctx.arc(lastX,lastY,ctx.lineWidth/2,0,Math.PI*2); ctx.fillStyle='rgba(0,0,0,1)'; ctx.fill(); ctx.globalCompositeOperation = prev; } else { ctx.arc(lastX,lastY,ctx.lineWidth/2,0,Math.PI*2); ctx.fillStyle = currentColor; ctx.fill(); } }
 
     function draw(e){ if(!isDrawing) return; e.preventDefault(); const p = getPos(e); ctx.beginPath(); ctx.moveTo(lastX,lastY); ctx.lineTo(p.x,p.y); ctx.stroke(); lastX = p.x; lastY = p.y; }
     function stopDraw(){ isDrawing = false; }
 
-    canvas.addEventListener('mousedown', startDraw);
-    canvas.addEventListener('mousemove', draw);
-    canvas.addEventListener('mouseup', stopDraw);
-    canvas.addEventListener('mouseleave', stopDraw);
-    canvas.addEventListener('touchstart', e=>{ e.preventDefault(); startDraw(e); }, { passive:false });
-    canvas.addEventListener('touchmove', e=>{ e.preventDefault(); draw(e); }, { passive:false });
-    canvas.addEventListener('touchend', stopDraw);
+    document.addEventListener('mousedown', startDraw);
+    document.addEventListener('mousemove', draw);
+    document.addEventListener('mouseup', stopDraw);
+    document.addEventListener('mouseleave', stopDraw);
+    document.addEventListener('touchstart', e=>{ if(shouldIgnoreDrawing(e.target)) return; e.preventDefault(); startDraw(e); }, { passive:false });
+    document.addEventListener('touchmove', e=>{ if(!isDrawing) return; e.preventDefault(); draw(e); }, { passive:false });
+    document.addEventListener('touchend', stopDraw);
 
-    // draw toggle: enables/disables drawing so page stays usable
-    drawToggle.addEventListener('click', ()=>{
-      const active = canvas.classList.toggle('active');
-      drawToggle.textContent = active ? 'STOP' : 'DRAW';
-      // when disabling, ensure pointer-events off
-      document.getElementById('container').style.pointerEvents = active ? 'auto' : 'none';
-      // show/hide cursor ring
-      ring.style.display = active ? 'block' : 'none';
-    });
-
-    // start disabled by default
+    // drawing always active on open
     document.getElementById('container').style.pointerEvents = 'none';
   })();
 </script>
