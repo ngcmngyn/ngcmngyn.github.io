@@ -243,7 +243,7 @@
     font-family: var(--mono);
     font-size: 0.8rem;
     line-height: 1.8;
-    max-width: 320px;
+    max-width: 540px;
     min-width: 240px;
     box-shadow: 6px 6px 0 var(--ink);
     transform: scale(0.92) translateY(8px);
@@ -307,6 +307,123 @@
     height: 3px;
     margin-bottom: 16px;
     border-radius: 2px;
+  }
+
+  /* ── CALENDAR ── */
+  .cal-popup {
+    max-width: 520px;
+    min-width: 440px;
+  }
+  .cal-inner {
+    display: flex;
+    gap: 18px;
+    align-items: flex-start;
+  }
+  .cal-left { flex: 0 0 auto; }
+  .cal-right {
+    flex: 1;
+    border-left: 1px solid var(--ink);
+    padding-left: 16px;
+    min-height: 180px;
+    display: none;
+  }
+  .cal-right.visible { display: block; }
+  .cal-nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 10px;
+    font-size: 0.72rem;
+  }
+  .cal-nav button {
+    background: none;
+    border: none;
+    font-family: var(--mono);
+    font-size: 0.9rem;
+    cursor: pointer;
+    color: var(--ink);
+    opacity: 0.6;
+    padding: 2px 6px;
+    transition: opacity 0.15s;
+  }
+  .cal-nav button:hover { opacity: 1; }
+  .cal-month-label {
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+  }
+  .cal-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 28px);
+    gap: 2px;
+  }
+  .cal-dow {
+    font-size: 0.58rem;
+    text-align: center;
+    opacity: 0.4;
+    padding-bottom: 4px;
+    font-weight: 700;
+  }
+  .cal-day {
+    width: 28px;
+    height: 28px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.65rem;
+    border-radius: 50%;
+    cursor: default;
+    transition: background 0.12s;
+  }
+  .cal-day.empty { opacity: 0; pointer-events: none; }
+  .cal-day.today {
+    background: rgba(0,0,0,0.08);
+    font-weight: 700;
+  }
+  .cal-day.has-event {
+    background: var(--rot);
+    color: #fff;
+    cursor: pointer;
+    animation: eventPulse 2s ease-in-out infinite;
+    font-weight: 700;
+  }
+  .cal-day.has-event:hover {
+    background: #ff3a2d;
+    animation: none;
+  }
+  .cal-day.selected {
+    background: var(--rot);
+    color: #fff;
+    box-shadow: 0 0 0 2px #fff, 0 0 0 3.5px var(--rot);
+    animation: none;
+  }
+  @keyframes eventPulse {
+    0%, 100% { box-shadow: 0 0 0 0 rgba(214,48,37,0.5); }
+    50%       { box-shadow: 0 0 0 6px rgba(214,48,37,0); }
+  }
+  /* event detail panel */
+  .cal-event-tag {
+    font-size: 0.6rem;
+    opacity: 0.5;
+    margin-bottom: 6px;
+  }
+  .cal-event-date {
+    font-family: var(--serif);
+    font-size: 1.1rem;
+    line-height: 1.2;
+    margin-bottom: 8px;
+    color: var(--rot);
+  }
+  .cal-event-title {
+    font-size: 0.8rem;
+    font-weight: 700;
+    margin-bottom: 8px;
+  }
+  .cal-event-body {
+    font-size: 0.7rem;
+    line-height: 1.7;
+    opacity: 0.75;
   }
 
   /* backdrop (subtle) */
@@ -569,7 +686,7 @@ niemand sollte hungrig bleiben.`,
           hier ist Platz für Kunst, Kultur und Erinnerungen.
           manchmal finden wir dort etwas wieder, das wir längst vergessen glaubten.`,
     links: [
-      { label: 'veranstaltungskalender', href: '#' },
+      { label: 'veranstaltungskalender', href: '#', action: 'rot-kalender' },
       { label: 'lesebühne', href: '#' },
       { label: 'eigenes event einreichen', href: '#' },
     ],
@@ -646,6 +763,72 @@ function closePopup() {
   current = null;
 }
 
+// ── CALENDAR STATE ──
+const events = {
+  '2026-07-07': {
+    title: 'luftpolsterfolien action',
+    body: `ein abend voller knall und entspannung.
+gemeinsam bubble wrap zerknallen, reden, lachen.
+bring deine eigene rolle mit – oder komm einfach so.
+eintritt frei. alle willkommen.`,
+    time: '19:00 Uhr',
+    location: 'Dachboden, Hainstraße 109'
+  }
+};
+
+let calYear  = new Date().getFullYear();
+let calMonth = new Date().getMonth(); // 0-based
+
+function openPopup(key) {
+  const d = data[key];
+  const popup = document.getElementById('popup');
+
+  popup.classList.remove('cal-popup');
+  document.getElementById('popup-accent').style.background = d.color;
+  document.getElementById('popup-tag').textContent = d.tag;
+  document.getElementById('popup-title').textContent = d.title;
+  document.getElementById('popup-body').textContent = d.body;
+
+  const linksEl = document.getElementById('popup-links');
+  linksEl.innerHTML = d.links.map(l =>
+    `<a href="${l.href}" data-action="${l.action||''}">${l.label}</a>`
+  ).join('');
+
+  popup.style.top    = d.pos.top    || 'auto';
+  popup.style.bottom = d.pos.bottom || 'auto';
+  popup.style.left   = d.pos.left   || 'auto';
+  popup.style.right  = d.pos.right  || 'auto';
+  popup.style.transform = '';
+
+  requestAnimationFrame(() => {
+    const r = popup.getBoundingClientRect();
+    let dx = 0, dy = 0;
+    if (r.right  > window.innerWidth  - 16) dx = window.innerWidth  - 16 - r.right;
+    if (r.left   < 16)                       dx = 16 - r.left;
+    if (r.bottom > window.innerHeight - 16) dy = window.innerHeight - 16 - r.bottom;
+    if (r.top    < 80)                       dy = 80 - r.top;
+    if (dx || dy) popup.style.transform = `translate(${dx}px,${dy}px)`;
+  });
+
+  popup.classList.add('visible');
+  document.getElementById('backdrop').classList.add('active');
+  current = key;
+
+  const path = document.getElementById('path-' + key);
+  if (path) {
+    path.style.filter = `drop-shadow(0 0 14px ${d.color})`;
+    path.style.strokeWidth = '28';
+    setTimeout(() => { path.style.filter = ''; path.style.strokeWidth = ''; }, 900);
+  }
+}
+
+function closePopup() {
+  document.getElementById('popup').classList.remove('visible');
+  document.getElementById('popup').classList.remove('cal-popup');
+  document.getElementById('backdrop').classList.remove('active');
+  current = null;
+}
+
 document.getElementById('popup-links').addEventListener('click', event => {
   const link = event.target.closest('a');
   if (!link) return;
@@ -655,12 +838,17 @@ document.getElementById('popup-links').addEventListener('click', event => {
     openSubpage('orange');
     return;
   }
+  if (link.dataset.action === 'rot-kalender') {
+    openCalendar();
+    return;
+  }
   if (link.classList.contains('back-link')) {
     openPopup(current);
     return;
   }
 });
 
+// ── SUBPAGE: BROTBÜCHSE ──
 function openSubpage(key) {
   const popup = document.getElementById('popup');
   const d = data[key];
@@ -670,20 +858,134 @@ function openSubpage(key) {
 dafür suchen wir Menschen, Unternehmen und Partner, die diese Idee unterstützen möchten.
 du hast: Lust, Zeit, Know-How, Möglichkeiten oder einfach eine gute Idee?
 melde dich bei uns.`,
-    backLabel: 'zurück'
   };
-
+  popup.classList.remove('cal-popup');
   document.getElementById('popup-accent').style.background = d.color;
   document.getElementById('popup-tag').textContent = d.tag;
   document.getElementById('popup-title').textContent = sub.title;
   document.getElementById('popup-body').textContent = sub.body;
-  document.getElementById('popup-links').innerHTML = `<a href="#" class="back-link">${sub.backLabel}</a>`;
-
-  popup.style.top = d.pos.top || 'auto';
+  document.getElementById('popup-links').innerHTML = `<a href="#" class="back-link">zurück</a>`;
+  popup.style.top    = d.pos.top    || 'auto';
   popup.style.bottom = d.pos.bottom || 'auto';
-  popup.style.left = d.pos.left || 'auto';
-  popup.style.right = d.pos.right || 'auto';
+  popup.style.left   = d.pos.left   || 'auto';
+  popup.style.right  = d.pos.right  || 'auto';
   popup.classList.add('visible');
+}
+
+// ── CALENDAR ──
+function openCalendar() {
+  // reset to current month on open
+  calYear  = new Date().getFullYear();
+  calMonth = new Date().getMonth();
+  renderCalendar(null);
+}
+
+function renderCalendar(selectedDay) {
+  const popup   = document.getElementById('popup');
+  const d       = data['rot'];
+  const today   = new Date();
+
+  const monthNames = [
+    'Januar','Februar','März','April','Mai','Juni',
+    'Juli','August','September','Oktober','November','Dezember'
+  ];
+
+  const firstDay  = new Date(calYear, calMonth, 1).getDay(); // 0=Sun
+  const daysInMonth = new Date(calYear, calMonth + 1, 0).getDate();
+  // Monday-first offset
+  const offset = (firstDay === 0) ? 6 : firstDay - 1;
+
+  // Build day cells
+  let cells = '';
+  for (let i = 0; i < offset; i++) {
+    cells += `<div class="cal-day empty"></div>`;
+  }
+  for (let d2 = 1; d2 <= daysInMonth; d2++) {
+    const dateStr = `${calYear}-${String(calMonth+1).padStart(2,'0')}-${String(d2).padStart(2,'0')}`;
+    const isToday = (calYear === today.getFullYear() && calMonth === today.getMonth() && d2 === today.getDate());
+    const hasEvent = !!events[dateStr];
+    const isSel    = (d2 === selectedDay);
+    let cls = 'cal-day';
+    if (isToday && !hasEvent) cls += ' today';
+    if (hasEvent) cls += ' has-event';
+    if (isSel)    cls += ' selected';
+    const onclick = hasEvent ? `onclick="calDayClick(${d2})"` : '';
+    cells += `<div class="${cls}" ${onclick} title="${hasEvent ? events[dateStr].title : ''}">${d2}</div>`;
+  }
+
+  // Event panel
+  let eventHtml = '';
+  if (selectedDay) {
+    const dateStr = `${calYear}-${String(calMonth+1).padStart(2,'0')}-${String(selectedDay).padStart(2,'0')}`;
+    const ev = events[dateStr];
+    if (ev) {
+      eventHtml = `
+        <div class="cal-event-tag">&lt;event&gt;</div>
+        <div class="cal-event-date">${selectedDay}. ${monthNames[calMonth]} ${calYear}</div>
+        <div class="cal-event-title">${ev.title}</div>
+        <div class="cal-event-body">${ev.time ? `<strong>${ev.time}</strong><br>` : ''}${ev.location ? `${ev.location}<br><br>` : ''}${ev.body.replace(/\n/g,'<br>')}</div>
+        <div class="cal-event-tag" style="margin-top:10px">&lt;/event&gt;</div>`;
+    }
+  }
+
+  popup.classList.add('cal-popup');
+  document.getElementById('popup-accent').style.background = d.color;
+  document.getElementById('popup-tag').textContent = d.tag;
+  document.getElementById('popup-title').textContent = 'veranstaltungskalender';
+  document.getElementById('popup-body').innerHTML = `
+    <div class="cal-inner">
+      <div class="cal-left">
+        <div class="cal-nav">
+          <button onclick="calNav(-1)" title="vorheriger Monat">←</button>
+          <span class="cal-month-label">${monthNames[calMonth]} ${calYear}</span>
+          <button onclick="calNav(1)"  title="nächster Monat">→</button>
+        </div>
+        <div class="cal-grid">
+          <div class="cal-dow">Mo</div>
+          <div class="cal-dow">Di</div>
+          <div class="cal-dow">Mi</div>
+          <div class="cal-dow">Do</div>
+          <div class="cal-dow">Fr</div>
+          <div class="cal-dow">Sa</div>
+          <div class="cal-dow">So</div>
+          ${cells}
+        </div>
+      </div>
+      <div class="cal-right ${selectedDay ? 'visible' : ''}" id="cal-event-panel">
+        ${eventHtml}
+      </div>
+    </div>`;
+  document.getElementById('popup-links').innerHTML = `<a href="#" class="back-link">zurück</a>`;
+
+  popup.style.top    = d.pos.top    || 'auto';
+  popup.style.bottom = d.pos.bottom || 'auto';
+  popup.style.left   = d.pos.left   || 'auto';
+  popup.style.right  = d.pos.right  || 'auto';
+  popup.style.transform = '';
+
+  requestAnimationFrame(() => {
+    const r = popup.getBoundingClientRect();
+    let dx = 0, dy = 0;
+    if (r.right  > window.innerWidth  - 16) dx = window.innerWidth  - 16 - r.right;
+    if (r.left   < 16)                       dx = 16 - r.left;
+    if (r.bottom > window.innerHeight - 16) dy = window.innerHeight - 16 - r.bottom;
+    if (r.top    < 80)                       dy = 80 - r.top;
+    if (dx || dy) popup.style.transform = `translate(${dx}px,${dy}px)`;
+  });
+
+  popup.classList.add('visible');
+  document.getElementById('backdrop').classList.add('active');
+}
+
+function calNav(dir) {
+  calMonth += dir;
+  if (calMonth < 0)  { calMonth = 11; calYear--; }
+  if (calMonth > 11) { calMonth = 0;  calYear++; }
+  renderCalendar(null);
+}
+
+function calDayClick(day) {
+  renderCalendar(day);
 }
 
 document.addEventListener('keydown', e => {
