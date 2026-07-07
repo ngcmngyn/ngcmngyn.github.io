@@ -721,60 +721,6 @@ niemand kann alles wissen.`,
 
 let current = null;
 
-function openPopup(key) {
-  const d = data[key];
-  const popup = document.getElementById('popup');
-
-  // Set content
-  document.getElementById('popup-accent').style.background = d.color;
-  document.getElementById('popup-tag').textContent = d.tag;
-  document.getElementById('popup-title').textContent = d.title;
-  document.getElementById('popup-body').textContent = d.body;
-
-  const linksEl = document.getElementById('popup-links');
-  linksEl.innerHTML = d.links.map(l =>
-    `<a href="${l.href}" data-action="${l.action||''}">${l.label}</a>`
-  ).join('');
-
-  // Position
-  popup.style.top = d.pos.top || 'auto';
-  popup.style.bottom = d.pos.bottom || 'auto';
-  popup.style.left = d.pos.left || 'auto';
-  popup.style.right = d.pos.right || 'auto';
-
-  // Clamp to viewport
-  popup.style.transform = '';
-  requestAnimationFrame(() => {
-    const r = popup.getBoundingClientRect();
-    let dx = 0, dy = 0;
-    if (r.right > window.innerWidth - 16)  dx = window.innerWidth - 16 - r.right;
-    if (r.left < 16)                        dx = 16 - r.left;
-    if (r.bottom > window.innerHeight - 16) dy = window.innerHeight - 16 - r.bottom;
-    if (r.top < 80)                         dy = 80 - r.top;
-    if (dx || dy) popup.style.transform = `translate(${dx}px,${dy}px)`;
-  });
-
-  popup.classList.add('visible');
-  document.getElementById('backdrop').classList.add('active');
-  current = key;
-
-  // Pulse the tentacle
-  const path = document.getElementById('path-' + key);
-  if (path) {
-    path.style.filter = `drop-shadow(0 0 14px ${d.color})`;
-    path.style.strokeWidth = '28';
-    setTimeout(() => {
-      path.style.filter = '';
-      path.style.strokeWidth = '';
-    }, 900);
-  }
-}
-
-function closePopup() {
-  document.getElementById('popup').classList.remove('visible');
-  document.getElementById('backdrop').classList.remove('active');
-  current = null;
-}
 
 function getGrunArchive() {
   return JSON.parse(localStorage.getItem('zvisionraum-gruen-archive') || '[]');
@@ -945,8 +891,6 @@ function openCalendar() {
   calMonth = new Date().getMonth();
   renderCalendar(null);
 }
-
-function renderCalendar(selectedDay) {
 
 function renderCalendar(selectedDay) {
   const popup   = document.getElementById('popup');
