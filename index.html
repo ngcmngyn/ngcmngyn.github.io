@@ -288,6 +288,16 @@
     line-height: 1.75;
     opacity: 0.8;
     margin-bottom: 14px;
+    max-height: 320px;
+    overflow-y: auto;
+    white-space: pre-wrap;
+    padding-right: 6px;
+  }
+  .popup-body img {
+    max-width: 100%;
+    display: block;
+    margin: 12px auto;
+    border: 1px solid rgba(0,0,0,0.12);
   }
   .popup-links { display: flex; flex-direction: column; gap: 4px; }
   .popup-links a {
@@ -660,7 +670,7 @@ hier wird gesammelt, geteilt und weitergegeben.
 manchmal laufen Bücher herum.`,
     links: [
       { label: 'posi-channel', href: '#' },
-      { label: 'archiv', href: '#' },
+      { label: 'archiv', href: '#', action: 'gruen-archive' },
     ],
     pos: { left: '12%', top: '14%' }
   },
@@ -763,6 +773,36 @@ function closePopup() {
   current = null;
 }
 
+function getGrunArchive() {
+  return JSON.parse(localStorage.getItem('zvisionraum-gruen-archive') || '[]');
+}
+
+function renderGrunArchive() {
+  const archive = getGrunArchive();
+  const popup = document.getElementById('popup');
+  const d = data['gruen'];
+  const rows = archive.map(entry => `
+    <div class="archive-entry">
+      <div class="archive-timestamp">&lt;${entry.timestamp}&gt;</div>
+      <img src="${entry.image}" alt="Screenshot ${entry.timestamp}">
+    </div>
+  `).join('');
+
+  popup.classList.remove('cal-popup');
+  document.getElementById('popup-accent').style.background = d.color;
+  document.getElementById('popup-tag').textContent = d.tag;
+  document.getElementById('popup-title').textContent = 'archiv';
+  document.getElementById('popup-body').innerHTML = archive.length
+    ? `<div class="archive-list">${rows}</div>`
+    : '<em>Das Archiv ist noch leer. Erstelle eine Zeichnung auf der Impressum-Seite und drücke PRINT.</em>';
+  document.getElementById('popup-links').innerHTML = `<a href="#" class="back-link">zurück</a>`;
+  popup.style.top = d.pos.top || 'auto';
+  popup.style.bottom = d.pos.bottom || 'auto';
+  popup.style.left = d.pos.left || 'auto';
+  popup.style.right = d.pos.right || 'auto';
+  popup.classList.add('visible');
+}
+
 // ── CALENDAR STATE ──
 const events = {
   '2026-07-07': {
@@ -836,6 +876,10 @@ document.getElementById('popup-links').addEventListener('click', event => {
 
   if (link.dataset.action === 'orange-brotbuechse') {
     openSubpage('orange');
+    return;
+  }
+  if (link.dataset.action === 'gruen-archive') {
+    renderGrunArchive();
     return;
   }
   if (link.dataset.action === 'rot-kalender') {

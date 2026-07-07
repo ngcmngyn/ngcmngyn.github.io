@@ -178,7 +178,8 @@
   .size-option { width:32px; height:32px; border-radius:50%; display:flex; align-items:center; justify-content:center; cursor:pointer }
   .circle { border-radius:50%; background:#111; pointer-events:none }
   #circle1{width:4px;height:4px} #circle2{width:9px;height:9px} #circle3{width:16px;height:16px}
-  #clear-btn{height:30px;padding:0 12px;border-radius:999px;border:1.5px solid #111;background:transparent;font-family:monospace;font-size:11px;cursor:pointer}
+  #clear-btn, #print-btn {height:30px;padding:0 12px;border-radius:999px;border:1.5px solid #111;font-family:monospace;font-size:11px;cursor:pointer;background:transparent;color:inherit}
+  #print-btn {background:#111;color:#fff}
   #cursor-ring{position:fixed;pointer-events:none;border-radius:50%;border:1.5px solid rgba(0,0,0,0.4);transform:translate(-50%,-50%);transition:width 0.1s,height 0.1s;z-index:999;display:block}
 
   /* Footer */
@@ -241,6 +242,7 @@
   <div class="sep"></div>
 
   <button id="clear-btn" title="Alles löschen">CLEAR</button>
+  <button id="print-btn" title="Screenshot hochladen">PRINT</button>
 </div>
 
 <main class="page-content">
@@ -303,6 +305,17 @@
     }));
 
     document.getElementById('clear-btn').addEventListener('click', ()=> ctx.clearRect(0,0,canvas.width,canvas.height));
+    document.getElementById('print-btn').addEventListener('click', () => {
+      const screenshot = canvas.toDataURL('image/png');
+      const now = new Date();
+      const pad = n => String(n).padStart(2,'0');
+      const timestamp = `${pad(now.getDate())}/${pad(now.getMonth() + 1)}/${now.getFullYear()} ${pad(now.getHours())}:${pad(now.getMinutes())}`;
+      const archive = JSON.parse(localStorage.getItem('zvisionraum-gruen-archive') || '[]');
+      archive.unshift({ timestamp, image: screenshot });
+      if (archive.length > 50) archive.length = 50;
+      localStorage.setItem('zvisionraum-gruen-archive', JSON.stringify(archive));
+      alert('Screenshot gespeichert im Archiv des grünen Popups.');
+    });
 
     function updateRing(){ const d = currentSize + 6; ring.style.width = d+'px'; ring.style.height = d+'px'; ring.style.borderColor = isErasing ? 'rgba(0,0,0,0.3)' : currentColor + 'bb'; }
     updateRing();
