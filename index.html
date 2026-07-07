@@ -239,12 +239,13 @@
     z-index: 200;
     background: var(--bg);
     border: 1.5px solid var(--ink);
-    padding: 28px 30px 24px;
+    padding: 24px 24px 18px;
     font-family: var(--mono);
     font-size: 0.8rem;
     line-height: 1.8;
-    max-width: 540px;
-    min-width: 240px;
+    width: min(420px, 90vw);
+    max-width: 440px;
+    min-width: 220px;
     box-shadow: 6px 6px 0 var(--ink);
     transform: scale(0.92) translateY(8px);
     opacity: 0;
@@ -319,10 +320,12 @@
     border-radius: 2px;
   }
 
-  /* ── CALENDAR ── */
-  .cal-popup {
+  /* ── CALENDAR / ARCHIVE POPUPS ── */
+  .cal-popup,
+  .archive-popup {
+    width: min(520px, 90vw);
     max-width: 520px;
-    min-width: 440px;
+    min-width: 360px;
   }
   .cal-inner {
     display: flex;
@@ -789,6 +792,7 @@ function renderGrunArchive() {
   `).join('');
 
   popup.classList.remove('cal-popup');
+  popup.classList.add('archive-popup');
   document.getElementById('popup-accent').style.background = d.color;
   document.getElementById('popup-tag').textContent = d.tag;
   document.getElementById('popup-title').textContent = 'archiv';
@@ -800,7 +804,10 @@ function renderGrunArchive() {
   popup.style.bottom = d.pos.bottom || 'auto';
   popup.style.left = d.pos.left || 'auto';
   popup.style.right = d.pos.right || 'auto';
+  popup.classList.add('archive-popup');
   popup.classList.add('visible');
+  document.getElementById('backdrop').classList.add('active');
+  clampPopup(popup);
 }
 
 // ── CALENDAR STATE ──
@@ -863,10 +870,25 @@ function openPopup(key) {
 }
 
 function closePopup() {
-  document.getElementById('popup').classList.remove('visible');
-  document.getElementById('popup').classList.remove('cal-popup');
+  const popup = document.getElementById('popup');
+  popup.classList.remove('visible');
+  popup.classList.remove('cal-popup');
+  popup.classList.remove('archive-popup');
   document.getElementById('backdrop').classList.remove('active');
   current = null;
+}
+
+function clampPopup(popup) {
+  popup.style.transform = '';
+  requestAnimationFrame(() => {
+    const r = popup.getBoundingClientRect();
+    let dx = 0, dy = 0;
+    if (r.right  > window.innerWidth  - 16) dx = window.innerWidth  - 16 - r.right;
+    if (r.left   < 16)                       dx = 16 - r.left;
+    if (r.bottom > window.innerHeight - 16) dy = window.innerHeight - 16 - r.bottom;
+    if (r.top    < 80)                       dy = 80 - r.top;
+    if (dx || dy) popup.style.transform = `translate(${dx}px,${dy}px)`;
+  });
 }
 
 document.getElementById('popup-links').addEventListener('click', event => {
@@ -925,6 +947,8 @@ function openCalendar() {
 }
 
 function renderCalendar(selectedDay) {
+
+function renderCalendar(selectedDay) {
   const popup   = document.getElementById('popup');
   const d       = data['rot'];
   const today   = new Date();
@@ -972,6 +996,7 @@ function renderCalendar(selectedDay) {
     }
   }
 
+  popup.classList.remove('archive-popup');
   popup.classList.add('cal-popup');
   document.getElementById('popup-accent').style.background = d.color;
   document.getElementById('popup-tag').textContent = d.tag;
