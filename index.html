@@ -286,7 +286,7 @@
   }
   .popup-body {
     font-size: 0.75rem;
-    line-height: 1.75;
+    line-height: 1.5;
     opacity: 0.8;
     margin-bottom: 14px;
     max-height: 320px;
@@ -294,10 +294,16 @@
     white-space: pre-wrap;
     padding-right: 6px;
   }
+  .cal-popup .popup-body,
+  .archive-popup .popup-body {
+    line-height: 1.35;
+    margin-bottom: 10px;
+    padding-right: 4px;
+  }
   .popup-body img {
     max-width: 100%;
     display: block;
-    margin: 12px auto;
+    margin: 10px auto;
     border: 1px solid rgba(0,0,0,0.12);
   }
   .popup-links { display: flex; flex-direction: column; gap: 4px; }
@@ -329,7 +335,7 @@
   }
   .cal-inner {
     display: flex;
-    gap: 18px;
+    gap: 10px;
     align-items: flex-start;
   }
   .cal-left { flex: 0 0 auto; }
@@ -345,7 +351,7 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    margin-bottom: 10px;
+    margin-bottom: 6px;
     font-size: 0.72rem;
   }
   .cal-nav button {
@@ -368,19 +374,19 @@
   }
   .cal-grid {
     display: grid;
-    grid-template-columns: repeat(7, 28px);
-    gap: 2px;
+    grid-template-columns: repeat(7, 24px);
+    gap: 1px;
   }
   .cal-dow {
-    font-size: 0.58rem;
+    font-size: 0.56rem;
     text-align: center;
     opacity: 0.4;
-    padding-bottom: 4px;
+    padding-bottom: 2px;
     font-weight: 700;
   }
   .cal-day {
-    width: 28px;
-    height: 28px;
+    width: 24px;
+    height: 24px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -423,19 +429,19 @@
   }
   .cal-event-date {
     font-family: var(--serif);
-    font-size: 1.1rem;
+    font-size: 1rem;
     line-height: 1.2;
-    margin-bottom: 8px;
+    margin-bottom: 6px;
     color: var(--rot);
   }
   .cal-event-title {
-    font-size: 0.8rem;
+    font-size: 0.78rem;
     font-weight: 700;
-    margin-bottom: 8px;
+    margin-bottom: 6px;
   }
   .cal-event-body {
-    font-size: 0.7rem;
-    line-height: 1.7;
+    font-size: 0.68rem;
+    line-height: 1.35;
     opacity: 0.75;
   }
 
